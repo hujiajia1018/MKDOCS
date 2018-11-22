@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>刷卡支付(反扫) - Windmill MkDocs Theme</title>
+    <title>支付宝服务窗 - Windmill MkDocs Theme</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -28,8 +28,10 @@
       var is_top_frame = false;
         
         var pageToc = [
-          {title: "\u5237\u5361\u652f\u4ed8\uff08\u53cd\u626b\uff09", url: "#_top", children: [
+          {title: "\u652f\u4ed8\u5b9d\u670d\u52a1\u7a97", url: "#_top", children: [
+              {title: "\u83b7\u53d6openid", url: "#openid" },
               {title: "\u8bf7\u6c42\u652f\u4ed8\u63a5\u53e3", url: "#_2" },
+              {title: "\u6536\u94f6\u53f0\u5524\u8d77\u652f\u4ed8", url: "#_3" },
           ]},
         ];
 
@@ -53,20 +55,20 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="APP-pay/" class="btn btn-xs btn-default pull-right">
+      <a href="scancode/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="APP-pay/" class="btn btn-xs btn-link">
-        APP支付
+      <a href="scancode/" class="btn btn-xs btn-link">
+        扫码支付(含支付宝wap)
       </a>
     </div>
     
     <div class="wm-article-nav">
-      <a href="scancode/" class="btn btn-xs btn-default pull-left">
+      <a href="wechat-mini/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="scancode/" class="btn btn-xs btn-link">
-        扫码支付(含支付宝wap)
+        Previous</a><a href="wechat-mini/" class="btn btn-xs btn-link">
+        微信小程序支付
       </a>
     </div>
     
@@ -74,8 +76,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
  -->
     
 
-    <h2 id="_1">刷卡支付（反扫）<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p><strong>场景说明：该支付场景支持使用扫码枪、扫码盒子等设备扫描用户展示的微信、支付宝付款二维码，以获取auth_code付款授权码，直接进行扣款的用户支付方式。</strong></p>
+    <h2 id="_1">支付宝服务窗<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p><strong>场景说明：该支付支持用户在支付宝服务窗、支付宝环境内的h5网页直接唤起支付宝输入密码支付。</strong></p>
+<h3 id="openid">获取openid<a class="headerlink" href="#openid" title="Permanent link">#</a></h3>
+<p>参考支付宝官方文档，阿里生产环境下，通过oauth获取user_id，具体参考</p>
+<p><a href="https://docs.open.alipay.com/289/105656">https://docs.open.alipay.com/289/105656</a></p>
 <h3 id="_2">请求支付接口<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
 <p><strong>基本请求信息：</strong></p>
 <table>
@@ -114,17 +119,17 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <tr>
 <td>txcurrcd</td>
 <td>是</td>
-<td>币种     港币：HKD ；人民币：CNY；日元：JPY；美元：USD；迪拉姆：AED；泰铢：THB；</td>
+<td>币种   港币：HKD ；人民币：CNY；日元：JPY；美元：USD；迪拉姆：AED；泰铢：THB；</td>
 </tr>
 <tr>
 <td>pay_type</td>
 <td>是</td>
-<td>支付类型  微信刷卡反扫:800208；支付宝刷卡反扫:800108;   微信、支付宝反扫800008；   LINEPAY：801208；AIRPAY：801408；   银联云闪付：800708；</td>
+<td>支付类型   支付宝服务窗支付:800107</td>
 </tr>
 <tr>
 <td>out_trade_no</td>
 <td>是</td>
-<td>外部订单号，开发者平台订单号</td>
+<td>外部订单号，开发者平台订单号，同子商户（mchid）下，每次成功调用支付（含退款）接口，该参数值均不能重复使用，保证单号唯一，长度不超过128字符</td>
 </tr>
 <tr>
 <td>txdtm</td>
@@ -132,14 +137,14 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <td>请求交易时间   格式为：格式为：YYYY-MM-DD HH:MM:SS</td>
 </tr>
 <tr>
-<td>auth_code</td>
+<td>openid</td>
 <td>是</td>
-<td>微信或者支付宝的授权码</td>
+<td>上一步获取的user_id   示例：2088802811715388</td>
 </tr>
 <tr>
 <td>goods_name</td>
 <td>是</td>
-<td>商品名称或标示</td>
+<td>商品名称或标示，建议不超过20字，不含英文逗号等特殊字符</td>
 </tr>
 <tr>
 <td>mchid</td>
@@ -157,85 +162,17 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <td>支付成功后的订单异步回调地址。</td>
 </tr>
 <tr>
+<td>limit_pay</td>
+<td>否</td>
+<td>该参数值指定为no_credit，则禁止使用信用卡支付</td>
+</tr>
+<tr>
 <td>udid</td>
 <td>否</td>
 <td>设备唯一id</td>
 </tr>
 </tbody>
 </table>
-<p><strong>python请求示例：</strong></p>
-<pre><code class="python">
-
-#!/usr/bin/env python
-
-#coding=utf8
-
-import urllib, urllib2, hashlib
-
-
-unicode_to_utf8 = lambda s: s.encode('utf-8') if isinstance(s, unicode) else s
-
-# 请求签名 data为数据字典
-
-def make_req_sign(data, key):
-
-    keys = data.keys()
-
-    keys.sort()
-
-    p = []
-
-    for k in keys:
-
-        k = unicode_to_utf8(k)
-
-        v = unicode_to_utf8(data[k])
-
-        p.append('%s=%s'%(k,v))
-
-    unsign_str = '&amp;'.join(p) + unicode_to_utf8(key)
-
-    s = hashlib.md5(unsign_str).hexdigest()
-
-    return s.upper()
-
-
-txamt = '1'
-
-txcurrcd = 'CNY'
-
-pay_type = '800208'
-
-out_trade_no = '145399626053599943'
-
-txdtm = '2016-04-11 17:51:00'
-
-goods_name = '钱方测试'   
-
-udid = '1880105'
-
-auth_code='130700033456383187'
-
-key = '钱方分配的app_key'
-
-
-
-data ={'txamt': txamt, 'txcurrcd': txcurrcd, 'pay_type': pay_type, 'out_trade_no': out_trade_no, 'txdtm': txdtm, 'goods_name':goods_name,'udid':udid,'auth_code':auth_code}
-
-
-
-req = urllib2.Request('https://openapi-test.qfpay.com/trade/v1/payment',urllib.urlencode(data))
-
-req.add_header('X-QF-APPCODE', '钱方分配的app_code')
-
-req.add_header('X-QF-SIGN', make_req_sign(data, key))
-
-resp = urllib2.urlopen(req)
-
-print resp.read()
-
-</code></pre>
-
 <p><strong>应答参数说明：</strong></p>
 <table>
 <thead>
@@ -247,7 +184,7 @@ print resp.read()
 <tbody>
 <tr>
 <td>pay_type</td>
-<td>支付类型   微信刷卡:800208；支付宝刷卡：800108；</td>
+<td>支付类型   微信公众号支付:800107</td>
 </tr>
 <tr>
 <td>sysdtm</td>
@@ -263,7 +200,7 @@ print resp.read()
 </tr>
 <tr>
 <td>txcurrcd</td>
-<td>币种   港币：HKD ；人民币：CNY；</td>
+<td>币种   港币：HKD ；人民币：CNY</td>
 </tr>
 <tr>
 <td>txamt</td>
@@ -271,42 +208,49 @@ print resp.read()
 </tr>
 <tr>
 <td>respmsg</td>
-<td>调试信息</td>
+<td>调试信息。</td>
 </tr>
 <tr>
 <td>out_trade_no</td>
-<td>外部订单号，开发者平台订单号</td>
+<td>外部订单号，开发者平台订单号。</td>
 </tr>
 <tr>
 <td>syssn</td>
-<td>钱方订单号</td>
+<td>钱方订单号。</td>
 </tr>
 <tr>
 <td>respcd</td>
-<td>交易返回码0000表示交易支付成功；   1143、1145表示交易中，需继续查询交易结果； 其他返回码表示交易失败</td>
+<td>请求下单结果返回码,0000表示下单成功；    1143、1145表示交易中，需要继续查询交易结果； 其他返回码表示失败。</td>
+</tr>
+<tr>
+<td>pay_params</td>
+<td>唤起支付宝支付参数。</td>
 </tr>
 </tbody>
 </table>
-<p>注：刷卡支付请求payment接口是直接发起用户扣款，返回respcd参数字段代表用户交易付款结果，若该字段状态为1143、1145，建议商户继续调用查询接口，继续跟踪交易付款结果，若长时间为1143、1145状态，可重新发起订单交易。</p>
-<p><strong>应答示例：</strong></p>
+<p><strong>返回示例：获取返回内容pay_params</strong></p>
 <pre><code>{
-  &quot;pay_type&quot;: &quot;800208&quot;,
-  &quot;sysdtm&quot;: &quot;2018-01-12 17:10:26&quot;,
-  &quot;cardcd&quot;: &quot;oo3Lss-DzPSygtHtAbfuXeQFCz18&quot;,
-  &quot;txdtm&quot;: &quot;2018-01-12 17:10:32&quot;,
+  &quot;pay_type&quot;: &quot;800107&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-11 18:44:59&quot;,
+  &quot;cardcd&quot;: &quot;&quot;, &quot;txdtm&quot;:
+  &quot;2018-01-11 18:45:03&quot;,
   &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,
   &quot;txcurrcd&quot;: &quot;CNY&quot;,
   &quot;txamt&quot;: &quot;1&quot;,
   &quot;respmsg&quot;: &quot;&quot;,
-  &quot;out_trade_no&quot;: &quot;1301459478787530052&quot;,
-  &quot;syssn&quot;: &quot;20180112000100020001659358&quot;,
-  &quot;respcd&quot;: &quot;0000&quot;
+  &quot;out_trade_no&quot;: &quot;130145478743444389767778530052&quot;,
+  &quot;syssn&quot;: &quot;20180111000100020001649385&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;pay_params&quot;: {
+    &quot;tradeNO&quot;: &quot;2018011121001004380248132360&quot;
+  }
 }
 </code></pre>
 
-<p>注：该请求返回结果直接为用户支付结果。</p>
+<h3 id="_3">收银台唤起支付<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<p>参考<a href="https://docs.open.alipay.com/common/105591">https://docs.open.alipay.com/common/105591</a>   在网页中唤起支付宝</p>
 <p><strong>支付成功后，接收异步通知</strong></p>
-<p><strong>特殊说明:</strong> 异步通知有可能由于外部因素会造成延迟，所以对实时要求高的场景请使用订单查询接口！由于安全原因，异步通知仅支持80和443端口，不支持自定义端口。</p>
+<p><strong>特殊说明:</strong> 异步通知有可能由于外部因素会造成延迟，所以对实时要求高的场景请使用订单查询接口！由于安全原因，异步通知仅支持80和443端口，不支持自定义端口</p>
 
   <br>
   <!--
@@ -315,20 +259,20 @@ print resp.read()
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="APP-pay/" class="btn btn-xs btn-default pull-right">
+      <a href="scancode/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="APP-pay/" class="btn btn-xs btn-link">
-        APP支付
+      <a href="scancode/" class="btn btn-xs btn-link">
+        扫码支付(含支付宝wap)
       </a>
     </div>
     
     <div class="wm-article-nav">
-      <a href="scancode/" class="btn btn-xs btn-default pull-left">
+      <a href="wechat-mini/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="scancode/" class="btn btn-xs btn-link">
-        扫码支付(含支付宝wap)
+        Previous</a><a href="wechat-mini/" class="btn btn-xs btn-link">
+        微信小程序支付
       </a>
     </div>
     

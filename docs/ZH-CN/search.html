@@ -72,16 +72,16 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <script type="text/javascript">
 // 语言切换跳转
 $('#zh-cn').on('click', function (e) {
-  var languageType = window.location.href.indexOf('zh-cn');
+  var languageType = window.location.href.indexOf('/ZH-CN/');
   if (languageType !== -1) {
-    console.log(12345);
+    window.location.href = window.location.href.slice(0, location.href.indexOf('/EN/')) + '/ZH-CN/'
   }
 });
 
 $('#en').on('click', function (e) {
-  var languageType = window.location.href.indexOf('en');
+  var languageType = window.location.href.indexOf('/EN/');
   if (languageType !== -1) {
-    console.log(54321);
+    window.location.href = window.location.href.slice(0, location.href.indexOf('/ZH-CN/')) + '/EN/'
   }
 });
 
