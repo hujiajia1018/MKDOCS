@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MkDocs theme focused on navigation and usability.">
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Windmill MkDocs Theme</title>
+    <link href="./css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="./css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/highlight.css">
+
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/bootstrap-3.3.7.min.js"></script>
+    <script src="./js/highlight.pack.js"></script>
+
+    
+      <script src="./js/elasticlunr.min.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '.';
+      var is_top_frame = (window === window.parent);
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="./js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<nav class="navbar wm-page-top-frame">
+  <div class="container-fluid wm-top-container container-fluid-self">
+    
+    <div class="wm-top-tool pull-left logo-view">
+      <img src="./img/logo.png" alt="">
+      <span>Document Center</span>
+    </div>
+
+    
+    <div class="wm-top-tool pull-right logo-view1">
+      <p><span id='zh-cn'>中文 </span>/<span id='en'> EN</span></p>
+    </div>
+
+    
+    <div class="wm-top-tool pull-right dropdown">
+      <div class="dropdown-inner" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">文档中心</div>
+      <!-- <ul class="dropdown-menu dropdown-menu-self" aria-labelledby="dropdownMenu1">
+        <li><a href="#">API文档</a></li>
+        <li><a href="#">开发指南</a></li>
+        <li><a href="#">帮助中心</a></li>
+      </ul> -->
+    </div>
+
+    
+    <div class="wm-top-tool pull-right dropdown">
+      <div class="dropdown-inner" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">管理中心</div>
+    </div>
+
+    
+    <div class="wm-top-tool pull-right wm-vcenter">
+      <form class="dropdown wm-vcentered" id="wm-search-form" action="./search.html">
+        
+        <button id="wm-search-show" class="btn btn-sm btn-default" type="submit"
+          ><i class="fa fa-search" aria-hidden="true"></i></button>
+
+        <div class="input-group input-group-sm wm-top-search">
+          <input type="text" name="q" class="form-control" id="mkdocs-search-query" placeholder="搜索" autocomplete="off">
+          <span class="input-group-btn" role="search">
+            
+            <button class="btn btn-default dropdown-toggle collapse" data-toggle="dropdown" type="button"><span class="caret"></span></button>
+            <ul id="mkdocs-search-results" class="dropdown-menu dropdown-menu-right"></ul>
+            <button id="wm-search-go" class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="wm-top-tool wm-vcenter pull-right wm-small-left">
+      <button id="wm-toc-button" type="button" class="btn btn-sm btn-default wm-vcentered"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+    </div>
+
+    <!-- 
+    
+    <div class="wm-top-tool pull-right wm-vcenter">
+      <div class="btn-group wm-vcentered" role="group" aria-label="back">
+        <button id="hist-back" type="button" class="btn btn-sm btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        <button id="hist-fwd" type="button" class="btn btn-sm btn-default"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+     -->
+
+    <!-- 
+    
+    <a href="" class="wm-top-brand wm-top-link wm-vcenter">
+      
+      <div class="wm-top-title">
+        Windmill MkDocs Theme<br>
+        
+          <span class="wm-top-version">v0.1.6</span>
+        
+      </div>
+    </a> -->
+  </div>
+</nav>
+  <div id="main-content" class="wm-page-top-frame">
+    
+<nav class="wm-toc-pane">
+  <ul class="wm-toctree">
+        <li class="wm-toc-li wm-toc-lev1 "><a href="/" class="wm-toc-text">变更记录</a>
+    <!-- <span class="wm-toc-text">变更记录</span> -->
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="developer/" class="wm-article-link wm-toc-text">开发指南</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="wechat-account/" class="wm-article-link wm-toc-text">微信公众号支付</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="wechat-mini/" class="wm-article-link wm-toc-text">微信小程序支付</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="alipay/" class="wm-article-link wm-toc-text">支付宝服务窗</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="scancode/" class="wm-article-link wm-toc-text">扫码支付(含支付宝wap)</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="card-pay/" class="wm-article-link wm-toc-text">刷卡支付(反扫)</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="APP-pay/" class="wm-article-link wm-toc-text">APP支付</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="API-Instructions/" class="wm-article-link wm-toc-text">API说明</a>
+</li>
+  </ul>
+</nav>
+    <div class="wm-content-pane">
+      <iframe class="wm-article" name="article"></iframe>
+    </div>
+  </div>
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="developer/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="developer/" class="btn btn-xs btn-link">
+        开发指南
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <p><strong>钱台支付对接文档3.3.1</strong></p>
+<p><strong>变更记录</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>版本号</strong></th>
+<th><strong>状态</strong></th>
+<th><strong>修改点说明</strong></th>
+<th><strong>变更确认</strong></th>
+<th><strong>日期</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QT1.1</td>
+<td>试用</td>
+<td>初版试用版</td>
+<td></td>
+<td>2018/01/16</td>
+</tr>
+<tr>
+<td>QT1.2</td>
+<td></td>
+<td></td>
+<td>新增小程序</td>
+<td>2018/02/07</td>
+</tr>
+<tr>
+<td>QT1.3</td>
+<td></td>
+<td></td>
+<td>变更公众号获取oauth_code，增加场景说明</td>
+<td>2018/03/14</td>
+</tr>
+<tr>
+<td>QT2.0</td>
+<td></td>
+<td></td>
+<td>增加海外支付类型支持/时区示例</td>
+<td>2018/09/13</td>
+</tr>
+<tr>
+<td>QT3.0</td>
+<td></td>
+<td></td>
+<td>增加pay_tag参数</td>
+<td>2018/09/21</td>
+</tr>
+<tr>
+<td>QT3.1</td>
+<td></td>
+<td></td>
+<td>新增添加订单备注接口</td>
+<td>2018/10/11</td>
+</tr>
+<tr>
+<td>QT3.2</td>
+<td></td>
+<td></td>
+<td>英文版板式更新</td>
+<td>2018/10/24</td>
+</tr>
+<tr>
+<td>QT3.3</td>
+<td></td>
+<td></td>
+<td>新增APP支付与NETSPAY扫码支付</td>
+<td>2018/11/08</td>
+</tr>
+<tr>
+<td>QT3.3.1</td>
+<td></td>
+<td></td>
+<td>完善APP支付流程</td>
+<td>2018/11/13</td>
+</tr>
+</tbody>
+</table>
+<p>在进行钱台接口对接前，请仔细参阅此文档中“<strong>开发指南</strong>”部分内容，包含环境说明、请求签名方式、请求说明、返回验签、异步通知等内容，然后可根据实际接入支付需求，参阅对应的支付部分内容，涵盖公众号、服务窗、微信支付宝的被扫、主扫等支付方式的调用。退款发起、查询等接口支持，可见本文档中“<strong>API说明</strong>”。</p>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="developer/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="developer/" class="btn btn-xs btn-link">
+        开发指南
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

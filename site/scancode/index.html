@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>扫码支付(含支付宝wap) - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u626b\u7801\u652f\u4ed8\uff08\u542b\u652f\u4ed8\u5b9dwap\uff09", url: "#_top", children: [
+              {title: "\u8bf7\u6c42\u652f\u4ed8\u63a5\u53e3", url: "#_1" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="card-pay/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="card-pay/" class="btn btn-xs btn-link">
+        刷卡支付(反扫)
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="alipay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="alipay/" class="btn btn-xs btn-link">
+        支付宝服务窗
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h2 id="wap">扫码支付（含支付宝wap）<a class="headerlink" href="#wap" title="Permanent link">#</a></h2>
+<p><strong>场景说明：该支付场景支持明确用户的支付金额与支付方式（微信或支付宝）后，系统生成对应二维码，用户扫描该固定金额的二维码进行支付，二维码仅可使用支付一次，时效一般不超30</strong><strong>分钟，过期作废。</strong></p>
+<h3 id="_1">请求支付接口<a class="headerlink" href="#_1" title="Permanent link">#</a></h3>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Post方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>发起消费交易接口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>是</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>是</td>
+<td>币种    港币：HKD ；人民币：CNY；日元：JPY；美元：USD；迪拉姆：AED；泰铢：THB；</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>是</td>
+<td>支付类型   微信扫码:800201；支付宝扫码:800101；   支付宝香港Wap支付: 801512;   支付宝香港扫码:801501;   支付宝海外Wap支付：801107;支付宝海外扫码:801101;   LINEPAY：801307；LINEPAY 线上预支付：801301   银联云闪付：800701；NETSPAY扫码: 801701</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>是</td>
+<td>外部订单号，开发者平台订单号，同子商户（mchid）下，每次成功调用支付（含退款）接口，该参数值均不能重复使用，保证单号唯一，长度不超过128字符</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>是</td>
+<td>请求交易时间   格式为：格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>是</td>
+<td>商品名称或标示，建议不超过20字，不含英文逗号等特殊字符</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>是</td>
+<td>子商户号，标识子商户身份，由钱方分配（渠道系统后台查看对应商户(非业务员)子商户号，被视为对应商户的交易）。</td>
+</tr>
+<tr>
+<td>pay_tag</td>
+<td>否</td>
+<td>本参数为支持本地跨境钱包支付标记，走AlipayHK支付通道的，此参数为必填项。值为ALIPAYHK或ALIPYCN，ALIPAYHK表示支持支付宝香港钱包支付，ALIPYCN表示支付宝本地跨境钱包支付，默认值为ALIPAYHK。</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>否</td>
+<td>时区，用于记录本地下单时间，默认为北京时间+0800</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>否</td>
+<td>支付成功后的订单异步回调地址。</td>
+</tr>
+<tr>
+<td>limit_pay</td>
+<td>否</td>
+<td>该参数值指定为no_credit，则禁止使用信用卡支付</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>否</td>
+<td>设备唯一id长度不超过40字符</td>
+</tr>
+</tbody>
+</table>
+<p><strong>python请求示例：</strong></p>
+<pre><code>
+#!/usr/bin/env python
+
+#coding=utf8
+
+import urllib, urllib2, hashlib
+
+
+
+unicode_to_utf8 = lambda s: s.encode('utf-8') if isinstance(s, unicode) else s
+
+# 请求签名 data为数据    字典
+
+def  make_req_sign(data, key):
+
+    keys = data.keys()
+
+    keys.sort()
+
+    p = []
+
+    for k in keys:
+
+        k = unicode_to_utf8(k)
+
+        v = unicode_to_utf8(data[k])
+
+        p.append('%s=%s'%(k,v))
+
+    unsign_str = '&amp;'.join(p) + unicode_to_utf8(key)
+
+    s = hashlib.md5(unsign_str).hexdigest()
+
+    return s.upper()
+
+txamt = '1'
+
+txcurrcd = 'CNY'
+
+pay_type = '800201'
+
+out_trade_no = '145399626053599943'
+
+txdtm = '2016-04-11 17:51:00'
+
+goods_name = '钱方测试'   
+
+limit_pay = 'no_credit'
+
+udid = '1880105'
+
+key = '钱方分配的app_key'
+
+data ={'txamt': txamt, 'txcurrcd': txcurrcd, 'pay_type': pay_type, 'out_trade_no': out_trade_no, 'txdtm': txdtm, 'goods_name':goods_name,'limit_pay':limit_pay,'udid':udid}
+
+req = urllib2.Request('https://openapi-test.qfpay.com/trade/v1/payment',urllib.urlencode(data))
+
+req.add_header('X-QF-APPCODE', '钱方分配的app_code')
+
+req.add_header('X-QF-SIGN', make_req_sign(data, key))
+
+resp = urllib2.urlopen(req)
+
+print resp.read()
+</code></pre>
+
+<p><strong>应答参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pay_type</td>
+<td>支付类型   微信扫码:800201；支付宝扫码:800101</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>系统时间</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>请求交易时间   格式为：YYYY-MM-MM HH:MM:SS</td>
+</tr>
+<tr>
+<td>resperr</td>
+<td>信息描述</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>respmsg</td>
+<td>调试信息</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>外部订单号，开发者平台订单号；</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>钱方订单号；</td>
+</tr>
+<tr>
+<td>qrcode</td>
+<td>下单成功后返回，需商户自行进行二维码转换；</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>返回码0000表示下单成功；   1143、1145表示交易中，需要继续查询交易结果， 其他返回码表示失败；</td>
+</tr>
+</tbody>
+</table>
+<p>注：该请求结果为下单结果，根据返回参数arcode 商户自行转换二维码，用户扫码付款；</p>
+<p><strong>应答示例：</strong></p>
+<pre><code>{
+  &quot;pay_type&quot;: &quot;800201&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-12 17:38:50&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-12 17:38:56&quot;,
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;13014597457448787530052&quot;,
+  &quot;syssn&quot;: &quot;20180112000100020001659801&quot;,
+  &quot;qrcode&quot;: &quot;weixin://wxpay/bizpayurl?pr=hBvNxhc&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;
+}
+</code></pre>
+
+<p><strong>支付成功后，接收异步通知</strong></p>
+<p><strong>特殊说明:</strong> 异步通知有可能由于外部因素会造成延迟，所以对实时要求高的场景请使用订单查询接口！由于安全原因，异步通知仅支持80和443端口，不支持自定义端口。</p>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="card-pay/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="card-pay/" class="btn btn-xs btn-link">
+        刷卡支付(反扫)
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="alipay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="alipay/" class="btn btn-xs btn-link">
+        支付宝服务窗
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

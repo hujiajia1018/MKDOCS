@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>微信公众号支付 - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u5fae\u4fe1\u516c\u4f17\u53f7\u652f\u4ed8", url: "#_top", children: [
+              {title: "\u83b7\u53d6\u5fae\u4fe1oauth\u7684code", url: "#oauthcode" },
+              {title: "\u83b7\u53d6openid", url: "#openid" },
+              {title: "\u8bf7\u6c42\u652f\u4ed8\u63a5\u53e3", url: "#_2" },
+              {title: "\u5524\u8d77\u5fae\u4fe1\u652f\u4ed8", url: "#_3" },
+              {title: "\u5b9e\u540d\u516c\u4f17\u53f7\u652f\u4ed8", url: "#_4" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="wechat-mini/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="wechat-mini/" class="btn btn-xs btn-link">
+        微信小程序支付
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="developer/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="developer/" class="btn btn-xs btn-link">
+        开发指南
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h2 id="_1">微信公众号支付<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>场景说明：该支付场景只允许在微信环境内的h5手机网页调起支付，不可在公众号内调用该支付。若商户有需求用户可以在公众号内发起支付，商户需进行实名，实名生效后支付流程需参阅实名公众号支付，实名后允许商户在实名的公众号内调用该支付；</p>
+<h3 id="oauthcode">获取微信oauth的code<a class="headerlink" href="#oauthcode" title="Permanent link">#</a></h3>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Get方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/tool/v1/get_weixin_oauth_code</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>获取微信oauth的code，注意这里的app_code与sign放在get参数里而不是http头中。用户需在微信环境内请求该URL地址。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_code</td>
+<td>是</td>
+<td>开发者识别码，由钱方分配的app_code字符串参数信息</td>
+</tr>
+<tr>
+<td>redirect_uri</td>
+<td>是</td>
+<td>回调地址，请求成功后，会重定向到该地址上，在地址get参数中获取code。 该地址做备案，仅在请求时做encode处理。</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>是</td>
+<td>子商户号，标识子商户身份，由钱方分配（渠道系统后台查看对应商户(非业务员)子商户号，被视为对应商户的交易）。</td>
+</tr>
+<tr>
+<td>sign</td>
+<td>是</td>
+<td>根据统一签名方式得到的签名</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求示例：</strong></p>
+<pre><code>https://openapi-test.qfpay.com/tool/v1/get_weixin_oauth_code?app_code=4A7D18AF8496425193E510DEC8E9526F&amp;redirect_uri=http://test.qfpay.com/get_code7&amp;mchid=ZKWjSzbb&amp;sign=3F4EED65F68FD5FA0C0AE5794A3AB6D9
+</code></pre>
+
+<h3 id="openid">获取openid<a class="headerlink" href="#openid" title="Permanent link">#</a></h3>
+<p>说明：每次调用支付，需完整走流程<a href="#目录获取oauth的code">获取微信oauth_code</a>和<a href="#目录获取openid800207">获取openid</a>步骤。</p>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Get方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/tool/v1/get_weixin_openid</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>获取openid，这里X-QF-APPCODE与X-QF-SIGN要放在http头中。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong>                                              </p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>是</td>
+<td>oauth_code上一步获取的code，同一code不可重复使用。</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>是</td>
+<td>子商户号，标识子商户身份，由钱方统一分配（可进入渠道后台对应商户查看）。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openid</td>
+<td>微信的openid，不同用户对应的openid不同。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">请求支付接口<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Post方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>发起消费交易接口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>是</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>是</td>
+<td>币种     港币：HKD ；人民币：CNY；日元：JPY；美元：USD；迪拉姆：AED；泰铢：THB；</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>是</td>
+<td>支付类型    微信公众号支付:800207。</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>是</td>
+<td>外部订单号，开发者平台订单号，同子商户（mchid）下，每次成功调用支付（含退款）接口下单，该参数值均不能重复使用，保证单号唯一，长度不超过128字符。</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>是</td>
+<td>请求交易时间   格式为：格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>sub_openid</td>
+<td>是</td>
+<td>微信的openid，在上一步骤中获取。</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>是</td>
+<td>商品名称标示，建议不超过20字，不含英文逗号等特殊字符。</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>是</td>
+<td>子商户号，标识子商户身份，由钱方分配（渠道系统后台查看对应商户(非业务员)子商户号，被视为对应商户的交易）。</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>否</td>
+<td>时区，用于记录本地下单时间，默认为北京时间+0800</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>否</td>
+<td>支付成功后的订单异步回调地址。</td>
+</tr>
+<tr>
+<td>limit_pay</td>
+<td>否</td>
+<td>该参数值指定为no_credit，则禁止使用信用卡支付</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>否</td>
+<td>设备唯一id</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pay_type</td>
+<td>支付类型   微信公众号支付:800207</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>系统时间</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>请求交易时间   格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>resperr</td>
+<td>信息描述</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>币种   港币：HKD ；人民币：CNY</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>respmsg</td>
+<td>调试信息。</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>外部订单号，开发者平台订单号。</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>钱方订单号。</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>请求下单结果返回码,0000表示下单成功；    1143、1145表示交易中，需要继续查询交易结果； 其他返回码表示失败。</td>
+</tr>
+<tr>
+<td>pay_params</td>
+<td>唤起微信支付的参数，详见以下示例中pay_params</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答示例</strong></p>
+<pre><code>{
+  &quot;pay_type&quot;: &quot;800207&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-15 10:45:44&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-15 10:45:43&quot;,
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;13054541930052&quot;,
+  &quot;syssn&quot;: &quot;20180115000100020001689938&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;pay_params&quot;: {
+    &quot;package&quot;: &quot;prepay_id=wx20180115104545871fa226d10608087535&quot;,
+    &quot;timeStamp&quot;: &quot;1515984345463&quot;,
+    &quot;signType&quot;: &quot;MD5&quot;,
+    &quot;paySign&quot;: &quot;E75ED8747CFB0F00DEDBD97FB8D92E9E&quot;,
+    &quot;appId&quot;: &quot;wx290ce4878c94369d&quot;,
+    &quot;nonceStr&quot;: &quot;1515984345463&quot;
+  }
+}
+</code></pre>
+
+<h3 id="_3">唤起微信支付<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<p><strong>返回参数pay_params字段如下：</strong>                         </p>
+<pre><code>{
+  &quot;package&quot;: &quot;prepay_id=wx20180115104545871fa226d10608087535&quot;,
+  &quot;timeStamp&quot;: &quot;1515984345463&quot;,
+  &quot;signType&quot;: &quot;MD5&quot;,
+  &quot;paySign&quot;: &quot;E75ED8747CFB0F00DEDBD97FB8D92E9E&quot;,
+  &quot;appId&quot;: &quot;wx290ce4878c94369d&quot;,
+  &quot;nonceStr&quot;: &quot;1515984345463&quot;
+}
+</code></pre>
+
+<p><strong>跳转到支付页面</strong></p>
+<p>说明：直接get相关参数到页面，该步骤http头部不需要定义X-QF-APPCODE与X-QF-SIGN参数。</p>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求地址</strong></th>
+<th><a href="https://o2.qfpay.com/q/direct">https://o2.qfpay.com/q/direct</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>获取支付参数后get参数到该指定页面完成支付。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mchntnm</td>
+<td>是</td>
+<td>自定义商户名，若为汉字需urlencode该参数</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>是</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>是</td>
+<td>自定义商品名称，若为汉字需urlencode该参数</td>
+</tr>
+<tr>
+<td>redirect_url</td>
+<td>是</td>
+<td>完成后跳转地址，（urlencode处理该参数）</td>
+</tr>
+<tr>
+<td>package</td>
+<td>是</td>
+<td>调用支付接口，微信返回参数</td>
+</tr>
+<tr>
+<td>timeStamp</td>
+<td>是</td>
+<td>调用支付接口，微信返回参数</td>
+</tr>
+<tr>
+<td>signType</td>
+<td>是</td>
+<td>调用支付接口，微信返回参数</td>
+</tr>
+<tr>
+<td>paySign</td>
+<td>是</td>
+<td>调用支付接口，微信返回参数（urlencode处理该参数）</td>
+</tr>
+<tr>
+<td>appId</td>
+<td>是</td>
+<td>调用支付接口，微信返回参数</td>
+</tr>
+<tr>
+<td>nonceStr</td>
+<td>是</td>
+<td>调用支付接口，微信返回参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>支付成功后，接收异步通知</strong></p>
+<p><strong>特殊说明:</strong> 异步通知有可能由于外部因素会造成延迟，所以对实时要求高的场景请使用订单查询接口！由于安全原因，异步通知仅支持80和443端口，不支持自定义指定端口。</p>
+<h3 id="_4">实名公众号支付<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<p>1、若商户完成钱方实名流程,实名生效后，将允许商户在实名的公众号内调用该支付方式，原有<a href="#微信公众号支付">公众号支付</a>流程会有改变，开发者需要向微信获取实名公众号的openid参数，具体可以参考微信文档，即：<a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_4">http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html</a></p>
+<p>2、用获取的openid请求钱方的订单支付接口/trade/v1/payment，与“微信公众号支付”的“请求支付接口”步骤一致，获取返回pay_params信息</p>
+<p>3、不再到钱方指定页面（https://o2.qfpay.com/q/direct）发起收款，而是到商户实名申请时的“JSAPI支付授权目录”下页面发起收款，唤起微信支付。</p>
+<p>详情请参考微信文档：<a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6">https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</a></p>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="wechat-mini/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="wechat-mini/" class="btn btn-xs btn-link">
+        微信小程序支付
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="developer/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="developer/" class="btn btn-xs btn-link">
+        开发指南
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

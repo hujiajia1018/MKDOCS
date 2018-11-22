@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>开发指南 - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u5f00\u53d1\u6307\u5357", url: "#_top", children: [
+              {title: "\u73af\u5883\u8bf4\u660e", url: "#_2" },
+              {title: "\u7b7e\u540d\u6821\u9a8c\u7b97\u6cd5", url: "#_3" },
+              {title: "\u8bf7\u6c42\u8bf4\u660e", url: "#_4" },
+              {title: "\u5e94\u7b54\u9a8c\u7b7e", url: "#_5" },
+              {title: "\u5f02\u6b65\u901a\u77e5", url: "#_6" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="wechat-account/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="wechat-account/" class="btn btn-xs btn-link">
+        微信公众号支付
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="" class="btn btn-xs btn-link">
+        变更记录
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h2 id="_1">开发指南<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h3 id="_2">环境说明<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<p><strong>钱台交易云对外服务有两个环境:</strong></p>
+<p><strong>测试环境：</strong> 用于测试、对接联调测试code、key。</p>
+<p><strong>正式环境：</strong> 商用服务，更高稳定性。</p>
+<p>l  测试code、key资金不进行清结算，请使用小额测试。</p>
+<p>l  mchid子商户号，渠道管理后台查看，该后台等申请正式code、key后提供。</p>
+<p>l  code、key 以渠道为基础配置，渠道下子商户可统一使用一套code、key。</p>
+<p><strong>接口请求域名：</strong></p>
+<p><strong>测试环境：https://openapi-test.qfpay.com</strong></p>
+<p><strong>正式环境：https://openapi.qfpay.com</strong></p>
+<p><strong>支持接口列表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>API接口说明：</th>
+<th><strong>接口地址：</strong></th>
+<th><strong>接口描述</strong></th>
+<th><strong>请求方式、说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>订单支付</td>
+<td>/trade/v1/payment</td>
+<td>发起消费交易接口，用于下单或支付发起</td>
+<td>Http的Post或者Get方式（form表单提交）</td>
+</tr>
+<tr>
+<td>订单查询</td>
+<td>/trade/v1/query</td>
+<td>查询订单信息，用于已成功下单的订单</td>
+<td>Http的Post或者Get方式</td>
+</tr>
+<tr>
+<td>订单退款</td>
+<td>/trade/v1/refund</td>
+<td>用于已支付订单退款</td>
+<td>Http的Post方式</td>
+</tr>
+<tr>
+<td>订单关闭</td>
+<td>/tarde/v1/close</td>
+<td>关闭交易</td>
+<td>Http的Post方式</td>
+</tr>
+</tbody>
+</table>
+<p><strong>编码说明</strong></p>
+<p>无特殊说明，所有接口参数返回使用UTF-8编码。</p>
+<h3 id="_3">签名校验算法<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<p>无特殊说明，所有请求接口签名均使用该签名方式。</p>
+<p><strong>请求接口参数签名方式：</strong></p>
+<p><strong>步骤1：</strong> 将所有参数按照参数名升序。</p>
+<p>参数列表为：abc=value1 bcd=value2 bad=value3</p>
+<p>排序结果为：abc=value1 bad=value3 bcd=value2</p>
+<p><strong>步骤2：</strong> 将所有参数用&amp;连接，得到待签名字符串。</p>
+<p>abc=value1&amp;bad=value3&amp;bcd=value2</p>
+<p><strong>步骤3：</strong> 将待签名的字符串与开发者的Key拼接。</p>
+<p>abc=value1&amp;bad=value3&amp;bcd=value2<strong>Key</strong></p>
+<p><strong>步骤4：</strong> 将拼接起来的字符串做MD5运算。</p>
+<p>MD5(abc=value1&amp;bad=value3&amp;bcd=value2<strong>Key</strong>)</p>
+<p><strong>步骤5：</strong> 请求接口使用签名。</p>
+<p>将签名结果存到http头部的X-QF-SIGN字段里</p>
+<p><strong>求签名python示例：</strong></p>
+<pre><code class="python">import hashlib
+
+unicode_to_utf8 = lambda s: s.encode('utf-8') if isinstance(s, unicode) else s
+
+# 请求签名 data为数据字典
+
+def make_req_sign(data, key):
+
+    keys = data.keys()
+
+    keys.sort()
+
+    p = []
+
+    for k in keys:
+
+        k = unicode_to_utf8(k)
+
+        v = unicode_to_utf8(data[k])
+
+        p.append('%s=%s'%(k,v))
+
+    unsign_str = '&amp;'.join(p) + unicode_to_utf8(key)
+
+    s = hashlib.md5(unsign_str).hexdigest()
+
+    return s.upper()
+</code></pre>
+
+<h3 id="_4">请求说明<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<p>请求API接口，http头部需要设置的参数如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>字段名称</strong></th>
+<th><strong>是否必传</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X-QF-APPCODE</td>
+<td>是</td>
+<td>分配给开发者的app_code，开发者的唯一标示，该参数需要钱方分配给开发者！</td>
+</tr>
+<tr>
+<td>X-QF-SIGN</td>
+<td>是</td>
+<td>按照签名算法生成的签名</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">应答验签<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<p>说明：请求接口成功后，接口返回JSON格式内容，获取接口返回信息，进行返回信息验签。</p>
+<p>返回http头部会设置的参数如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>字段名称</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X-QF-SIGN</td>
+<td>获取http头部签名SIGN内容字符串，然后用原始返回内容连接key，进行MD5，即MD5(body+key)获得签名，与该SIGN内容对比是否一致；</td>
+</tr>
+</tbody>
+</table>
+<p><strong>头部SIGN示例：</strong></p>
+<pre><code>{
+  'Server': 'nginx',
+  'Date': 'Fri, 12 Jan 2018 11:31:18 GMT',
+  'Content-Type': 'application/json; charset=UTF-8',
+  'Content-Length': '302',
+  'Connection': 'keep-alive',
+  'X-QF-SIGN': '1E2CE7C2A7F8F581C354A857182B7A31',
+  'X-Powered-By': 'QF/1.1'
+}
+</code></pre>
+
+<p><strong>公共返回参数如下：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名称</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>respcd</td>
+<td>Data外数据参数返回0000为下单成功；   注：data内数据参数respcd返回0000为收款成功，其他结果（1143，1145除外）均为失败，其中返回1143,1145表示交易中，需要继续查询交易结果。若订单长时间为1143、1145状态，建议<a href="#订单关闭">订单关闭</a>后重新发起。</td>
+</tr>
+<tr>
+<td>Resperr</td>
+<td>信息描述</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>支付类型</td>
+</tr>
+<tr>
+<td>respmsg</td>
+<td>调试信息</td>
+</tr>
+</tbody>
+</table>
+<p><strong>返回内容验签对比SIGN：</strong></p>
+<pre><code>MD5内容为：
+{
+  &quot;pay_type&quot;: &quot;800108&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-12 19:31:16&quot;,
+  &quot;cardcd&quot;: &quot;2088802362210279&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-12 19:31:22&quot;,
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;130145934788787530052&quot;,
+  &quot;syssn&quot;: &quot;20180112000100020001662134&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;
+}
+615ED178BA524459976CE40FAB78000F
+
+MD5结果：1E2CE7C2A7F8F581C354A857182B7A31
+</code></pre>
+
+<h3 id="_6">异步通知<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<p><strong>注意：</strong> 异步通知地址，由渠道提供给钱方技术支持人员进行配置，每套code、key只能配置一条异步通知地址，可修改。</p>
+<p>支付成功的订单，会返回异步通知结果，异步通知有可能由于外部因素造成延迟，所以对实时要求高的场景请调用查询接口查询，建议异步通知与查询接口配合使用。由于安全原因，异步通知仅支持80和443端口，不支持自定义指定端口。</p>
+<p><strong>异步通知发送规则：</strong></p>
+<p>①异步通知的地址提供给钱方技术支持，在后台系统设定好。</p>
+<p>②交易成功后，钱方会以json格式POST到设定好的异步通知地址上。</p>
+<p>③开发者，收到异步通知后，验证签名通过后，需要给钱方返回SUCCESS字符串，表示已处理。</p>
+<p>④若开发者给钱方返回其他的数据，或者没有任何返回，那么钱方会以一定的策略再次发送异步通知，时间间隔是2m、10m、10m、60m、2h、6h、15h，期间任何一次收到SUCCESS，都将不继续后续的通知。</p>
+<p><strong>异步通知签名算法验证：</strong></p>
+<p><strong>步骤1：</strong> 从http头部X-QF-SIGN字段取到签名。</p>
+<p><strong>步骤2：</strong>  http应答所有原始正文内容body部分和Key拼接起来，得到待验证的字符串。</p>
+<p><strong>步骤3：</strong> 将待验证的字符串，做MD5运算。</p>
+<p><strong>步骤4：</strong> 运算结果与X-QF-SIGN签名对比，验证是否一致，一致则验证成功，返回        <strong>SUCCESS</strong></p>
+<p><strong>验证签名python示例：</strong></p>
+<pre><code class="python">import hashlib
+
+unicode_to_utf8 = lambda s: s.encode('utf-8') if isinstance(s, unicode) else s
+
+# 应答签名 data为返回的整个内容数据字符串
+
+def make_resp_sign(data, key):
+
+​    unsign_str = unicode_to_utf8(data) + unicode_to_utf8(key)
+
+​    s = hashlib.md5(unsign_str).hexdigest()
+
+​    return s.upper()
+</code></pre>
+
+<p><strong>异步通知返回参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名称</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>notify_type</td>
+<td>通知类型   payment：支付； refund：退款； close：关闭；</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>交易流水号；</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>外部订单号，开发者定义订单号；</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>支付类型   支付宝扫码:800101； 支付宝反扫:800108；支付宝服务窗：800107；微信扫码:800201； 微信刷卡:800208； 微信公众号支付:800207；</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>请求交易时间；</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>交易返回码，默认返回所有订单状态的返回码；</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>系统交易时间</td>
+</tr>
+<tr>
+<td>paydtm</td>
+<td>用户支付时间</td>
+</tr>
+<tr>
+<td>cancel</td>
+<td>撤销/退款标记   正常交易：0；已撤销：2；已退货：3；</td>
+</tr>
+<tr>
+<td>cardcd</td>
+<td>微信、支付宝的用户openid 参数；</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>商品名称或标示；</td>
+</tr>
+<tr>
+<td>status</td>
+<td>交易状态码：1：支付成功；</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>币种：港币：HKD ；人民币：CNY；</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>子商户号；</td>
+</tr>
+</tbody>
+</table>
+<p><strong>异步通知返回示例：</strong></p>
+<pre><code>{
+  &quot;status&quot;: &quot;1&quot;,
+  &quot;sysdtm&quot;: &quot;2017-12-28 13:41:47&quot;,
+  &quot;paydtm&quot;: &quot;2017-12-28 13:42:20&quot;,
+  &quot;goods_name&quot;: &quot;&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;mchid&quot;: &quot;XXxxxx&quot;,
+  &quot;cancel&quot;: &quot;0&quot;,
+  &quot;pay_type&quot;: &quot;800207&quot;,
+  &quot;cardcd&quot;: &quot;oo3Lss1m9-eHSEyY2OGKzxFaRflY&quot;,
+  &quot;txdtm&quot;: &quot;2017-12-28 13:41:47&quot;,
+  &quot;txamt&quot;: &quot;200&quot;,
+  &quot;out_trade_no&quot;: &quot;BO201712280117290001&quot;,
+  &quot;syssn&quot;: &quot;20171228000300020044178249&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;goods_info&quot;: &quot;&quot;,
+  &quot;notify_type&quot;: &quot;payment&quot;
+}
+</code></pre>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="wechat-account/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="wechat-account/" class="btn btn-xs btn-link">
+        微信公众号支付
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="" class="btn btn-xs btn-link">
+        变更记录
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

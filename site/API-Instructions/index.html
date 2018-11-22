@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>API说明 - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "API\u8bf4\u660e", url: "#_top", children: [
+              {title: "\u8ba2\u5355\u652f\u4ed8", url: "#_1" },
+              {title: "\u8ba2\u5355\u67e5\u8be2", url: "#_2" },
+              {title: "\u8ba2\u5355\u9000\u6b3e", url: "#_3" },
+              {title: "\u8ba2\u5355\u5173\u95ed", url: "#_4" },
+              {title: "\u8ba2\u5355\u5907\u6ce8", url: "#_5" },
+              {title: "\u4e0b\u8f7d\u5bf9\u8d26\u5355", url: "#_6" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="APP-pay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="APP-pay/" class="btn btn-xs btn-link">
+        APP支付
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h2 id="api">API说明<a class="headerlink" href="#api" title="Permanent link">#</a></h2>
+<h3 id="_1">订单支付<a class="headerlink" href="#_1" title="Permanent link">#</a></h3>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Post方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>发起消费交易接口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>是</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>是</td>
+<td>币种    港币：HKD ；人民币：CNY；日元：JPY；美元：USD；迪拉姆：AED；泰铢：THB；</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>是</td>
+<td>支付类型   支付宝扫码:800101；   支付宝反扫:800108；支付宝服务窗：800107；微信扫码:800201； 微信刷卡:800208； 微信公众号:800207；</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>是</td>
+<td>外部订单号，开发者定义订单号。同子商户（mchid）下，每次成功调用支付（含退款）接口，该参数值均不能重复使用，保证单号唯一，长度不超过128字符</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>是</td>
+<td>请求交易时间    格式为：YYYY-MM-DD   HH:MM:SS</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>是</td>
+<td>商品名称标示，建议不超过20字，不含英文逗号等特殊字符</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>是</td>
+<td>子商户号，标识子商户身份，由钱方分配（渠道系统后台查看对应商户(非业务员)子商户号，被视为对应商户的交易）。</td>
+</tr>
+<tr>
+<td>openid</td>
+<td>否</td>
+<td>支付宝的openid，支付宝服务窗需要传该参数</td>
+</tr>
+<tr>
+<td>sub_openid</td>
+<td>否</td>
+<td>微信的openid，微信公众号支付需要传该参数</td>
+</tr>
+<tr>
+<td>auth_code</td>
+<td>否</td>
+<td>微信、支付宝刷卡（被扫）需要传递该参数</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>否</td>
+<td>时区，用于记录本地下单时间，默认为北京时间+0800</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>否</td>
+<td>支付成功后的订单异步回调地址。</td>
+</tr>
+<tr>
+<td>limit_pay</td>
+<td>否</td>
+<td>微信扫码或公众号支付时，该参数值指定为no_credit，则禁止使用信用卡支付</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>否</td>
+<td>设备唯一id，长度不超过40字符</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>钱方订单号；</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>外部订单号，开发者平台订单号；</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>币种    港币：HKD ；人民币：CNY；</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>支付类型   支付宝扫码:800101； 支付宝反扫:800108；支付宝服务窗：800107；微信扫码:800201； 微信刷卡:800208； 微信公众号支付:800207；</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>请求交易时间    格式为：YYYY-MM-DD   HH:MM:SS</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>系统时间</td>
+</tr>
+<tr>
+<td>qrcode</td>
+<td>扫码时返回，二维码url；</td>
+</tr>
+<tr>
+<td>pay_params</td>
+<td>唤起微信公众号、支付宝服务窗支付的参数，800207微信公众号、800107支付宝服务窗返回</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">订单查询<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<p><strong>说明：</strong> 发起交易后，需要调用查询接口，获取订单的状态，直到钱方返回具体的状态信息为止，根据订单的状态进行相应的处理。</p>
+<p>默认不支持隔月订单查询，若查询隔月订单，需传入start_time、end_time（时间区间包含sysdtm时间，且区间不能跨月）参数，建议以syssn为条件进行查询。</p>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Post或者Get方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/trade/v1/query</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>查询交易信息接口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mchid</td>
+<td>是</td>
+<td>子商户号，标识子商户身份，由钱方统一分配；</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>否</td>
+<td>钱方订单号查询，多个以英文逗号区分开；</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>否</td>
+<td>外部订单号查询，开发者平台订单号；</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>否</td>
+<td>按支付类型查询，多个以英文逗号区分开   支付宝扫码:800101； 支付宝反扫:800108；支付宝服务窗：800107；微信扫码:800201； 微信刷卡:800208； 微信公众号支付:800207；</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>否</td>
+<td>交易返回码，默认返回所有返回码状态的订单</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td>否</td>
+<td>开始时间，默认本月开始   格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>end_time</td>
+<td>否</td>
+<td>结束时间，默认本月结束   格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>否</td>
+<td>时区，用于记录本地下单时间，默认为北京时间+0800</td>
+</tr>
+<tr>
+<td>page</td>
+<td>否</td>
+<td>页数，默认1</td>
+</tr>
+<tr>
+<td>page_size</td>
+<td>否</td>
+<td>每页显示数量，默认显示10笔订单</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page</td>
+<td>页数</td>
+</tr>
+<tr>
+<td>resperr</td>
+<td>下单结果描述</td>
+</tr>
+<tr>
+<td>page_size</td>
+<td>每页显示数量</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>下单请求结果返回码 0000表示下单成功</td>
+</tr>
+<tr>
+<td>data</td>
+<td>交易数据，为list，其中字段描述如下</td>
+</tr>
+</tbody>
+</table>
+<p><strong>data字段说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>钱方订单号</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>外部订单号，开发者平台订单号</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>支付类型，多个以英文逗号区分开   支付宝扫码:800101； 支付宝反扫:800108；支付宝服务窗：800107；微信扫码:800201； 微信刷卡:800208； 微信公众号支付:800207；</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>订单类型   支付的订单：payment；退款的订单：refund；关闭的订单：close；</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>请求交易时间    格式为：YYYY-MM-DD   HH:MM:SS</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>系统交易时间</td>
+</tr>
+<tr>
+<td>cancel</td>
+<td>撤销/退款标记   正常交易：0；已撤销：2；已退货：3</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>支付结果返回码 0000表示交易支付成功；   1143、1145表示交易中，需继续查询交易结果； 其他返回码表示失败</td>
+</tr>
+<tr>
+<td>errmsg</td>
+<td>支付结果描述</td>
+</tr>
+</tbody>
+</table>
+<p>data内的respcd参数返回码0000表示支付交易成功，data外的respcd参数返回码0000表示请求下单成功。</p>
+<p><strong>应答示例：</strong></p>
+<pre><code>{
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;resperr&quot;: &quot;\u8bf7\u6c42\u6210\u529f&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;data&quot;: [
+    {
+      &quot;pay_type&quot;: &quot;800208&quot;,
+      &quot;sysdtm&quot;: &quot;2018-01-12 17:10:26&quot;,
+      &quot;order_type&quot;: &quot;payment&quot;,
+      &quot;txcurrcd&quot;: &quot;CNY&quot;,
+      &quot;txdtm&quot;: &quot;2018-01-12 17:10:32&quot;,
+      &quot;txamt&quot;: &quot;1&quot;,
+      &quot;out_trade_no&quot;: &quot;1301459478787530052&quot;,
+      &quot;syssn&quot;: &quot;20180112000100020001659358&quot;,
+      &quot;cancel&quot;: &quot;0&quot;,
+      &quot;respcd&quot;: &quot;0000&quot;,
+      &quot;errmsg&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;
+    }
+  ],
+  &quot;page&quot;: 1,
+  &quot;page_size&quot;: 10
+}
+</code></pre>
+
+<h3 id="_3">订单退款<a class="headerlink" href="#_3" title="Permanent link">#</a></h3>
+<p>退款说明：退款的发起是一笔退款订单，发起退款商户当日交易余额需大于退款订单金额，建议发起退款对应原订单的syssn订单号时间与本次发起退款的时间间隔不超过30天。</p>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Post方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/trade/v1/refund</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>用于对已支付订单进行退款操作</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>是</td>
+<td>钱方订单号，退款对应的原订单syssn</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>是</td>
+<td>外部订单号，同子商户（mchid）下，每次成功调用支付与退款接口，该参数值均不能重复使用，也不能与支付时的外部订单号相同，保证单号唯一，长度不超过128字符。</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>是</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>是</td>
+<td>请求交易时间   格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>是</td>
+<td>子商户号，标识子商户身份，由钱方统一分配</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>否</td>
+<td>时区，用于记录本地下单时间，默认为北京时间+0800</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>否</td>
+<td>支付成功后的订单异步回调地址。</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>否</td>
+<td>设备唯一id</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>退款交易唯一流水号</td>
+</tr>
+<tr>
+<td>orig_syssn</td>
+<td>原订交易流水号</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>请求方交易时间   格式为：YYYY-mm-dd HH:MM:DD</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>系统时间</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答示例：</strong></p>
+<pre><code>{
+  &quot;orig_syssn&quot;: &quot;20180112000100020001659358&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-12 19:03:23&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-12 19:03:29&quot;,
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;13014597435743348787530052&quot;,
+  &quot;syssn&quot;: &quot;20180112000100020001661542&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;
+}
+</code></pre>
+
+<h3 id="_4">订单关闭<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<p>①  什么状态的订单可以关闭？</p>
+<p>扫码支付与公众号支付，若订单支付未成功，可关闭；</p>
+<p>若订单已支付成功，原则上不建议调用关闭订单接口，因银行对于该订单支持标准不一致，很可能导致关闭失败。</p>
+<p>刷卡支付，订单支付未成功，都可以关闭订单；若支付成功的同时，调用关闭订单接口，实际是微信的撤销API，此订单支付的款项就会原路返回。</p>
+<p>②关闭订单应用场景</p>
+<p>关闭订单只是适用于当时，主要是为了避免重复支付。</p>
+<p>为了避免造成各种未知问题，请不要把关闭订单接口当做退款接口使用。</p>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>Http的Post方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>请求地址</td>
+<td>/trade/v1/close</td>
+</tr>
+<tr>
+<td>描述信息</td>
+<td>关闭交易接口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mchid</td>
+<td>是</td>
+<td>子商户号，标识子商户身份，由钱方统一分配。</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>是</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>是</td>
+<td>请求交易时间   格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>否</td>
+<td>钱方订单号 <strong>其中参数syssn与out_trade_no至少传递一个</strong></td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>否</td>
+<td>外部订单号，<strong>其中参数syssn与out_trade_no至少传递一个</strong></td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>否</td>
+<td>时区，用于记录本地下单时间，默认为北京时间+0800</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>否</td>
+<td>设备唯一id</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>钱方关闭交易生成的唯一订单号</td>
+</tr>
+<tr>
+<td>orig_syssn</td>
+<td>原交易钱方订单号，对应被关闭原订单syssn</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>请求交易时间   格式为：YYYY-mm-dd HH:MM:DD</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>系统交易时间</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答示例：</strong></p>
+<pre><code>{
+  &quot;orig_syssn&quot;: &quot;20180112000100020001659801&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-12 19:07:02&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-12 19:07:09&quot;,
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;syssn&quot;: &quot;20180112000100020001661611&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;
+}
+
+注：关闭订单非通用支持，可能出现不支持关闭订单的情况，若关闭订单应答返回码为“1297”或返回内容无syssn字段（注：不是orig_syssn），说明该交易不支持关闭订单，如果用户已成功支付，可调用[退款接口](#订单退款)进行退款。
+</code></pre>
+
+<h3 id="_5">订单备注<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<p><strong>说明</strong>：给订单添加交易备注；注意：不支持渠道模式的商户添加备注</p>
+<p><strong>基本请求信息</strong>：</p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Post方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/trade/v1/add_note</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>为订单添加备注</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>是</td>
+<td>钱方提供的商户code</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>是</td>
+<td>交易成功后钱方返回的订单号</td>
+</tr>
+<tr>
+<td>note</td>
+<td>是</td>
+<td>需要添加的备注信息，不超过200个字符</td>
+</tr>
+</tbody>
+</table>
+<p><strong>返回参数示例：</strong></p>
+<pre><code>{&quot;resperr&quot;:&quot;&quot;,&quot;respcd&quot;:&quot;0000&quot;,&quot;respmsg&quot;:&quot;&quot;,&quot;data&quot;:{}}
+</code></pre>
+
+<h3 id="_6">下载对账单<a class="headerlink" href="#_6" title="Permanent link">#</a></h3>
+<p><strong>说明：</strong>渠道隔日下载清算对账单，以自然日为单位，包含每家商户的账单信息。</p>
+<p>只能在正式环境上请求才可以，返回内容文件为zip格式压缩包文件。</p>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Get方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/download/v1/trade_bill</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>通过接口获取对账单文件，保存为zip文件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>trade_date</td>
+<td>是</td>
+<td>获取对账单的具体日期 如2017-10-17</td>
+</tr>
+</tbody>
+</table>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="APP-pay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="APP-pay/" class="btn btn-xs btn-link">
+        APP支付
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>APP支付 - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "APP\u652f\u4ed8", url: "#_top", children: [
+              {title: "\u5524\u8d77APP\u652f\u4ed8", url: "#app_1" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="API-Instructions/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="API-Instructions/" class="btn btn-xs btn-link">
+        API说明
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="card-pay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="card-pay/" class="btn btn-xs btn-link">
+        刷卡支付(反扫)
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h2 id="app">APP支付<a class="headerlink" href="#app" title="Permanent link">#</a></h2>
+<p><strong>场景说明：该支付场景支持独立开发的iOS、Android应用程序自有业务逻辑中需要支付场景中使用，通过下单接口获取支付参数，拉起Alipay HK或Wechat Pay香港钱包进行付款，付款成功后确认支付结果并完成业务流程。</strong></p>
+<p><strong>基本请求信息：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>请求方式</strong></th>
+<th>Http的Post方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>请求地址</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>描述信息</strong></td>
+<td>发起消费交易接口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>是否必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>是</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>是</td>
+<td>币种  港币：HKD； 人民币：CNY； 美元：USD；</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>是</td>
+<td>支付类型：    801010 WeixinHK APP支付；801510 AlipayHK APP支付；</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>是</td>
+<td>外部订单号，开发者定义订单号。同子商户（mchid）下，每次成功调用支付（含退款）接口，该参数值均不能重复使用，保证单号唯一，长度不超过128字符</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>是</td>
+<td>请求交易时间，格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>是</td>
+<td>商品名称标示，建议不超过20字，不含英文逗号等特殊字符</td>
+</tr>
+<tr>
+<td>goods_info</td>
+<td>否</td>
+<td>AlipayHK APP支付此参数必传；   商品描述，建议不超过300字，不含英文逗号等特殊字符</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>否</td>
+<td>有子商户时，此参数必传；   子商户号，标识子商户身份，由钱方分配（渠道系统后台查看对应商户(非业务员)子商户号，被视为对应商户的交易）。</td>
+</tr>
+<tr>
+<td>pay_tag</td>
+<td>否</td>
+<td>走AlipayHK支付通道的，此参数必传；   支持本地跨境钱包支付标记。值为ALIPAYHK或ALIPYCN，ALIPAYHK表示支持支付宝香港钱包支付，ALIPYCN表示支付宝本地跨境钱包支付，默认值为ALIPAYHK。</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>否</td>
+<td>支付成功后的订单异步回调地址()。</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>否</td>
+<td>时区，用于记录本地下单时间，默认为北京时间+0800</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>否</td>
+<td>设备唯一id</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>钱方订单号；</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>外部订单号，开发者平台订单号</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>订单支付金额，单位分, 即100=$1</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>币种  港币：HKD ；人民币：CNY；</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>支付类型      801010   WeixinHK APP支付；801510 AlipayHK   APP支付；</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>请求交易时间    格式为：YYYY-MM-DD HH:MM:SS</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>系统时间</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>请求下单结果返回码,0000表示下单成功；    1143、1145表示交易中，需要继续查询交易结果； 其他返回码表示失败。</td>
+</tr>
+<tr>
+<td>respmsg</td>
+<td>调试信息。</td>
+</tr>
+<tr>
+<td>resperr</td>
+<td>成功或错误信息描述</td>
+</tr>
+<tr>
+<td>pay_params</td>
+<td>唤起APP支付的请求参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应答示例（AlipayHK APP）：</strong></p>
+<pre><code>{
+  &quot;syssn&quot;: &quot;20180904016100020000058497&quot;,
+  &quot;out_trade_no&quot;: &quot;1018172042-1226&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;txcurrcd&quot;: &quot;HKD&quot;,
+  &quot;pay_type&quot;: &quot;801510&quot;,
+  &quot;txdtm&quot;: &quot;2018-09-04 19:00:00&quot;,
+  &quot;sysdtm&quot;: &quot;2018-09-04 20:30:18&quot;,   
+  &quot;udid&quot;: &quot;qiantai2&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,  
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,  
+  &quot;chnlsn&quot;: &quot;&quot;,  
+  &quot;pay_params&quot;: {
+    &quot;partner&quot;: &quot;2088621909478475&quot;,
+    &quot;seller_id&quot;: &quot;forex_318255@alitest.com&quot;,
+    &quot;subject&quot;: &quot;goods_name&quot;,
+    &quot;body&quot;: &quot;goods_info&quot;,
+    &quot;total_fee&quot;: &quot;0.01&quot;,
+    &quot;notify_url&quot;: &quot;http://www.xxx.com&quot;,
+    &quot;service&quot;: &quot;mobile.securitypay.pay&quot;,
+    &quot;cardcd&quot;: &quot;&quot;,
+    &quot;payment_type&quot;: &quot;1&quot;,
+    &quot;_input_charset&quot;: &quot;UTF-8&quot;,
+    &quot;it_b_pay&quot;: &quot;30m&quot;,
+    &quot;return_url&quot;: &quot;http://www.qfpay.com/&quot;,
+    &quot;payment_inst&quot;: &quot;ALIPAYHK&quot;,
+    &quot;currency&quot;: &quot;HKD&quot;,
+    &quot;product_code&quot;: &quot;NEW_WAP_OVERSEAS_SELLER&quot;,
+    &quot;forex_biz&quot;: &quot;FP&quot;,
+    &quot;sign&quot;:&quot;AXwqha79D%2BdnJvN4qyIk6wrintWXMFL3DNvIsJ9wmoBVkhWdE1jWb%2Fn7gWwcEPJkxrmgE%2BSLaPOo9mTemDzDgt99tJ4yPL%2B%2FFLiT78e5xCyZKOdPLcKnZ2fAKaiBTca43m5J6GE%2B8ybu56fRLw0hI8oWSxiJzY54MxwDGbE4QoQ%3D&quot;,
+    &quot;sign_type&quot;: &quot;RSA&quot;,
+    &quot;secondary_merchant_id&quot;: &quot;2325496&quot;,
+    &quot;secondary_merchant_name&quot;: &quot;shusheng&quot;,
+    &quot;secondary_merchant_industry&quot;: &quot;5311&quot;
+  }
+}
+</code></pre>
+
+<p><strong>应答示例（WeixinHK APP）：</strong></p>
+<pre><code>{
+  &quot;syssn&quot;: &quot;20181018016100020000064335&quot;,
+  &quot;out_trade_no&quot;: &quot;1018171240-6683&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;txcurrcd&quot;: &quot;HKD&quot;,
+  &quot;pay_type&quot;: &quot;801010&quot;,
+  &quot;txdtm&quot;: &quot;2018-10-18 17:12:40&quot;,
+  &quot;sysdtm&quot;: &quot;2018-10-18 17:12:41&quot;,  
+  &quot;udid&quot;: &quot;qiantai2&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;respmsg&quot;: &quot;OK&quot;,
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f\uff01&quot;,     
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;pay_params&quot;: {
+    &quot;prepayid&quot;: &quot;415398539638736726430369036811&quot;,
+    &quot;sign&quot;: &quot;89D5D3346DCD0C5F848C4ADFA8F2E70D&quot;
+  },
+  &quot;chnlsn&quot;: &quot;&quot;
+}
+</code></pre>
+
+<h3 id="app_1">唤起APP支付<a class="headerlink" href="#app_1" title="Permanent link">#</a></h3>
+<p>获取以上返回参数后，APP通过pay_params参数中内容调起Alipay HK SDK或Wechat Pay SDK进行支付，具体可参考官网文档：</p>
+<p>AlipayHK：<strong>https://global.alipay.com/service/app_hk/6</strong></p>
+<p><strong>返回参数pay_params字段如下（AlipayHK APP）：</strong>                         </p>
+<pre><code>{
+  &quot;partner&quot;: &quot;2088621909478475&quot;,
+  &quot;seller_id&quot;: &quot;forex_318255@alitest.com&quot;,
+  &quot;out_trade_no&quot;: &quot;20180904016100020000058497&quot;,
+  &quot;subject&quot;: &quot;goods_name&quot;,
+  &quot;body&quot;: &quot;goods_info&quot;,
+  &quot;total_fee&quot;: &quot;0.01&quot;,
+  &quot;notify_url&quot;: &quot;http://www.xxx.com&quot;,
+  &quot;service&quot;: &quot;mobile.securitypay.pay&quot;,
+  &quot;payment_type&quot;: &quot;1&quot;,
+  &quot;_input_charset&quot;: &quot;UTF-8&quot;,
+  &quot;it_b_pay&quot;: &quot;30m&quot;,
+  &quot;return_url&quot;: &quot;http://www.qfpay.com/&quot;,
+  &quot;payment_inst&quot;: &quot;ALIPAYHK&quot;,
+  &quot;currency&quot;: &quot;HKD&quot;,
+  &quot;product_code&quot;: &quot;NEW_WAP_OVERSEAS_SELLER&quot;,
+  &quot;forex_biz&quot;: &quot;FP&quot;,
+  &quot;sign&quot;:&quot;AXwqha79D%2BdnJvN4qyIk6wrintWXMFL3DNvIsJ9wmoBVkhWdE1jWb%2Fn7gWwcEPJkxrmgE%2BSLaPOo9mTemDzDgt99tJ4yPL%2B%2FFLiT78e5xCyZKOdPLcKnZ2fAKaiBTca43m5J6GE%2B8ybu56fRLw0hI8oWSxiJzY54MxwDGbE4QoQ%3D&quot;,
+  &quot;sign_type&quot;: &quot;RSA&quot;,
+  &quot;secondary_merchant_id&quot;: &quot;2325496&quot;,
+  &quot;secondary_merchant_name&quot;: &quot;shusheng&quot;,
+  &quot;secondary_merchant_industry&quot;: &quot;5311&quot;
+}
+</code></pre>
+
+<p><strong>返回参数pay_params字段如下（WeixinHK APP）：</strong></p>
+<pre><code>{&quot;prepayid&quot;: &quot;415398539638736726430369036811&quot;, &quot;sign&quot;: &quot;89D5D3346DCD0C5F848C4ADFA8F2E70D&quot;}
+</code></pre>
+
+<p><strong>python请求示例：</strong></p>
+<pre><code>#!/usr/bin/env python
+
+#coding=utf8
+
+import urllib, urllib2, hashlib
+
+
+
+unicode_to_utf8 = lambda s: s.encode('utf-8') if isinstance(s, unicode) else s
+
+# 请求签名 data为数据字典
+
+def make_req_sign(data, key):
+
+    keys = data.keys()
+
+    keys.sort()
+
+    p = []
+
+    for k in keys:
+
+        k = unicode_to_utf8(k)
+
+        v = unicode_to_utf8(data[k])
+
+        p.append('%s=%s'%(k,v))
+
+    unsign_str = '&amp;'.join(p) + unicode_to_utf8(key)
+
+    s = hashlib.md5(unsign_str).hexdigest()
+
+    return s.upper()
+
+
+
+txamt = '1'
+
+txcurrcd = ‘HKD’
+
+pay_type = '801510'
+
+out_trade_no = '145399626053599943'
+
+txdtm = '2018-09-10 11:51:00'
+
+goods_name = '钱方测试goods_name'   
+
+goods_info = '钱方测试goods_info'
+
+mchid = 'P5W2di7Raa'
+
+return_url = 'http://www.qfpay.com/'
+
+seller_id = 'forex_318255@alitest.com'
+
+key = '钱方分配的app_key'
+
+
+
+data ={'txamt': txamt, 'txcurrcd': txcurrcd, 'pay_type': pay_type, 'out_trade_no': out_trade_no, 'txdtm': txdtm, 'goods_name':goods_name, 'goods_info ': goods_info, 'mchid': mchid, 'return_url ': return_url, 'seller_id ': seller_id}
+
+
+
+req = urllib2.Request('https://openapi-test.qfpay.com/trade/v1/payment',urllib.urlencode(data))
+
+req.add_header('X-QF-APPCODE', '钱方分配的app_code')
+
+req.add_header('X-QF-SIGN', make_req_sign(data, key))
+
+resp = urllib2.urlopen(req)
+
+print resp.read()
+</code></pre>
+
+<p><strong>支付成功后，接收异步通知</strong></p>
+<p><strong>特殊说明:</strong> 异步通知有可能由于外部因素会造成延迟，所以对实时要求高的场景请使用订单查询接口！由于安全原因，异步通知仅支持80和443端口，不支持自定义端口。</p>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="API-Instructions/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="API-Instructions/" class="btn btn-xs btn-link">
+        API说明
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="card-pay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="card-pay/" class="btn btn-xs btn-link">
+        刷卡支付(反扫)
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>
