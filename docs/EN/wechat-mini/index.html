@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Applet WECHAT - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Applet | WECHAT", url: "#_top", children: [
+              {title: "Applet Real Name Registration", url: "#applet-real-name-registration" },
+              {title: "Obtain OpenID", url: "#obtain-openid" },
+              {title: "Request Payment API", url: "#request-payment-api" },
+              {title: "Call Applet Pay", url: "#call-applet-pay" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="alipay/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="alipay/" class="btn btn-xs btn-link">
+        Service Window ALIPAY
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="wechat-account/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="wechat-account/" class="btn btn-xs btn-link">
+        Official Account WECHAT
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h1 id="applet-124-wechat">Applet | WECHAT<a class="headerlink" href="#applet-124-wechat" title="Permanent link">#</a></h1>
+<p><strong>Scenario:</strong> Merchant already has a WeChat Applet and needs to call WeChat Pay to finish payment in the Applet.</p>
+<h2 id="applet-real-name-registration">Applet Real Name Registration<a class="headerlink" href="#applet-real-name-registration" title="Permanent link">#</a></h2>
+<p>Merchant needs to contact QFPAY to finish the Applet real name registration before using WeChat Applet Pay.</p>
+<p><strong>Note</strong>: merchant can only call payment with the real name registered under Applet.</p>
+<h2 id="obtain-openid">Obtain OpenID<a class="headerlink" href="#obtain-openid" title="Permanent link">#</a></h2>
+<p>For details on how the Merchant obtains <strong>openid</strong> with the Applet after real name takes effect, please refer to:</p>
+<p><a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html?t=20161122">https: //mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html?t=20161122</a></p>
+<h2 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h2>
+<p><strong>Basic Request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post under HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Call the payment API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>Y</td>
+<td>Transaction Amount.</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Y</td>
+<td>Transaction Currency:  Hong Kong Dollar: HKD / China Yuan: CNY / Japanese Yen: JPY / US Dollar: USD / UAE Dirham: AED / <strong>Thai Baht: THB.</strong></td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Y</td>
+<td>Payment Type: 800213 (WeChat Applet Pay).</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>Y</td>
+<td>External Order Number / Developer Platform Order Number: This parameter cannot be used repeatedly to call payment (refund) API and make an order under the same MCHID. To ensure the trade number is unique, length is limited to 128 bytes.</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Y</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
+</tr>
+<tr>
+<td>sub_openid</td>
+<td>Y</td>
+<td>OpenID of WeChat Mini-Program Pay, obtained during the former process.</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>Y</td>
+<td>Goods Name / Marking: Cannot exceed 20 alphanumeric or contain special characters.</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID: identification for merchant, assigned by QFPAY to distinguish the different merchants' order in channel system.</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>N</td>
+<td>Transaction Time zone: record of the order in local time, default time zone is Beijing time UTC+8.</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>N</td>
+<td>Asynchronous notification address when order paid successfully.</td>
+</tr>
+<tr>
+<td>limit_pay</td>
+<td>N</td>
+<td>Use to limit credit card transaction</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>N</td>
+<td>Unique device id</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response sample</strong></p>
+<pre><code>{
+  &quot;pay_type&quot;: &quot;800213&quot;,
+  &quot;sysdtm&quot;: &quot;2018-02-01 18: 40: 18&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-02-01 18: 40: 18&quot;,
+  &quot;resperr&quot;: &quot;\\u4ea4\\u6613\\u6210\\u529f&quot;,
+   &quot;txcurrcd&quot;: &quot;CNY&quot;,
+   &quot;txamt&quot;: &quot;1&quot;,
+   &quot;respmsg&quot;: &quot;&quot;,
+   &quot;out_trade_no&quot;: &quot;20180201184018100000326&quot;,
+   &quot;syssn&quot;: &quot;20180201000100020001881791&quot;,
+   &quot;respcd&quot;: &quot;0000&quot;,
+   &quot;pay_params&quot;: {
+     &quot;package&quot;: &quot;prepay_id=wx201802011840185d43f609cb0985252573&quot;,
+     &quot;timeStamp&quot;: &quot;1517481618&quot;,
+     &quot;signType&quot;: &quot;MD5&quot;,
+     &quot;paySign&quot;: &quot;5AB862AFB08B2545C7EE781C15408031&quot;,
+     &quot;appId&quot;: &quot;wx8f888cc1127fe645&quot;,
+     &quot;nonceStr&quot;: &quot;56d07134614d4f55b18afeca6addd60d&quot;
+   }
+}
+</code></pre>
+
+<h2 id="call-applet-pay">Call Applet Pay<a class="headerlink" href="#call-applet-pay" title="Permanent link">#</a></h2>
+<p>Applet payment can be called after obtaining the above parameters. Please refer to: <strong><a href="https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&amp;index=5">https: //pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&amp;index=5</a></strong></p>
+<p><strong>Receive Asynchronous notification after successful payment</strong></p>
+<p><strong>Note:</strong> please call the query API to inquire because the <a href="#目录异步通知">Asynchronous</a> notification might be delayed because of external factors, we suggest to use query API together with the asynchronous notification. for safety consideration, asynchronous notification only work with port 80 and 443 and doesn't work with custom port.</p>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="alipay/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="alipay/" class="btn btn-xs btn-link">
+        Service Window ALIPAY
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="wechat-account/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="wechat-account/" class="btn btn-xs btn-link">
+        Official Account WECHAT
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Card WECHAT ALIPAY - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Card | WECHAT / ALIPAY", url: "#_top", children: [
+              {title: "Request Payment API", url: "#request-payment-api" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="APP-pay/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="APP-pay/" class="btn btn-xs btn-link">
+        Value Added Services API
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="scancode/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="scancode/" class="btn btn-xs btn-link">
+        QR Code WECHAT ALIPAY
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h1 id="card-124-wechat-alipay">Card | WECHAT / ALIPAY<a class="headerlink" href="#card-124-wechat-alipay" title="Permanent link">#</a></h1>
+<p><strong>Description:</strong> Consumer-Presented Mode (Merchant scans Consumer's WeChat or Alipay payment code to obtain auth_code (payment authorization code) and collects payment from consumer.</p>
+<h2 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h2>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post under http</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Initiate order payment API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>Y</td>
+<td>Order payment amount,2 decimal places</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Y</td>
+<td>Currency  Hongkong Dollar: HKD ; China Yuan: CNY; Japan Yen: JPY; US Dollar: USD; Dirham: AED; <strong>Thai Baht: THB; </strong></td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Y</td>
+<td>Pay type    WeChat Card Pay: 800208;   Alipay Card Pay: 800108;  WeChat/Alipay Card Pay: 800008;   AIRPAY: 801408;  LINE PAY: 801208;  UNIONPAY: 800708;</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>Y</td>
+<td>External Order number,developer platform order number.</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Y</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format)</td>
+</tr>
+<tr>
+<td>auth_code</td>
+<td>Y</td>
+<td>Authorization assigned by WeChat or Alipay</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>Y</td>
+<td>Goods name or marking</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID, identification for merchant,assigned by QFPAY(to distinguish the different merchants' order in channel system).</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>N</td>
+<td>Time zone,to record the domestic order time, default time zone is Beijing time+0800</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>N</td>
+<td>Asynchronous notification address when order paid successfully</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>N</td>
+<td>Unique device ID</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Python request sample:</strong></p>
+<pre><code>#!/usr/bin/env python
+
+#coding=utf8
+
+import urllib, urllib2, hashlib
+
+unicode_to_utf8 = lambda s: s.encode('utf-8') if isinstance(s, unicode) else s
+
+# request signature data as data dictionary
+
+def make_req_sign(data, key):
+
+keys = data.keys()
+
+keys.sort()
+
+p = []
+
+for k in keys:
+
+k = unicode_to_utf8(k)
+
+v = unicode_to_utf8(data[k])
+
+p.append('%s=%s'%(k,v))
+
+unsign_str = '&amp;'.join(p) + unicode_to_utf8(key)
+
+s = hashlib.md5(unsign_str).hexdigest()
+
+return s.upper()
+
+txamt = '1'
+
+txcurrcd = 'CNY'
+
+pay_type = '800208'
+
+out_trade_no = '145399626053599943'
+
+txdtm = '2016-04-11 17: 51: 00'
+
+goods_name = 'testing'
+
+udid = '1880105'
+
+auth_code='130700033456383187'
+
+key = 'app_key assigned by QFPAY'
+
+data ={'txamt': txamt, 'txcurrcd': txcurrcd, 'pay_type': pay_type, 'out_trade_no': out_trade_no, 'txdtm': txdtm, 'goods_name': goods_name,'udid': udid,'auth_code': auth_code}
+
+req = urllib2.Request('https: //openapi-test.qfpay.com/trade/v1/payment',urllib.urlencode(data))
+
+req.add_header('X-QF-APPCODE', 'app_code assigned by QFPAY')
+
+req.add_header('X-QF-SIGN', make_req_sign(data, key))
+
+resp = urllib2.urlopen(req)
+
+print resp.read()
+</code></pre>
+
+<p><strong>Response parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pay_type</td>
+<td>Payment Type: <strong>800208</strong> (WeChat Card) / <strong>800108</strong> (Alipay Card)</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>System time</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format)</td>
+</tr>
+<tr>
+<td>resperr</td>
+<td>Response description</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Transaction Currency:   Hong Kong Dollar: HKD / Chinese Yuan: CNY</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Transaction Amount: 2 decimal places</td>
+</tr>
+<tr>
+<td>respmsg</td>
+<td>Debug information</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>External Order number, developer platform order number.</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>Order number on QFPAY side</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>Response Code: Code generated from order request.<strong>0000</strong>: SUCCESS / <strong>1143</strong>: IN PROGRESS / <strong>1145</strong>: IN PROGRESS / (any others): FAIL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> card payment request API initiates the collecting of payment from customer, the parameter <strong>respcd</strong> shows the result of payment, we suggest merchant continue calling query API to check the payment result if <strong>respcd</strong> shows 1143,1145. Or to re-submit an order if the status stays in 1143,1145 for too long</p>
+<p><strong>Response sample:</strong></p>
+<pre><code>{
+  &quot;pay_type&quot;: &quot;800208&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-12 17: 10: 26&quot;,
+  &quot;cardcd&quot;: &quot;oo3Lss-DzPSygtHtAbfuXeQFCz18&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-12 17: 10: 32&quot;,
+  &quot;resperr&quot;: &quot;\\u4ea4\\u6613\\u6210\\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;1301459478787530052&quot;,
+  &quot;syssn&quot;: &quot;20180112000100020001659358&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;
+}
+</code></pre>
+
+<p>Note : this request return result is the customers payment's return result</p>
+<p><strong>Receive Asynchronous notification after successful payment</strong></p>
+<p><strong>Note:</strong> please call the query API to inquire because the <a href="#目录异步通知">Asynchronous</a> notification might be delayed because of external factors, we suggest to use query API together with the asynchronous notification. for safety consideration, asynchronous notification only work with port 80 and 443 and doesn't work with custom port.</p>
+<h1 id="_1"><a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="APP-pay/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="APP-pay/" class="btn btn-xs btn-link">
+        Value Added Services API
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="scancode/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="scancode/" class="btn btn-xs btn-link">
+        QR Code WECHAT ALIPAY
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

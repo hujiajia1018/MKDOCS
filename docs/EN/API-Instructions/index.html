@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>API Instructions - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "API Instructions", url: "#_top", children: [
+              {title: "Order Query", url: "#order-query" },
+              {title: "Order Refund", url: "#order-refund" },
+              {title: "Order Close", url: "#order-close" },
+              {title: "Order Remarks", url: "#order-remarks" },
+              {title: "Bill Download", url: "#bill-download" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="APP-pay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="APP-pay/" class="btn btn-xs btn-link">
+        Value Added Services API
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h1 id="api-instructions">API Instructions<a class="headerlink" href="#api-instructions" title="Permanent link">#</a></h1>
+<p>OrderPayment</p>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post under HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Initiate order payment API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>Y</td>
+<td>Transaction Amount: 2 decimal places</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Y</td>
+<td>Transaction Currency:  Hong Kong Dollar: HKD / China Yuan: CNY / Japanese Yen: JPY / US Dollar: USD / UAE Dirham: AED / <strong>Thai Baht: THB</strong></td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Y</td>
+<td>Payment Type: <strong>800101</strong> (Alipay QR Code) / <strong>800108</strong> (Alipay Card) / <strong>800107</strong> (Alipay Service Window) / <strong>800201</strong> (WeChat QR Code) / <strong>800208</strong> (WeChat Card) / <strong>800207</strong> (WeChat Official Account)</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>Y</td>
+<td>External Order Number / Developer Platform Order Number: This parameter cannot be used repeatedly to call payment (refund) API and make an order under the same MCHID. To ensure the trade number is unique, length is limited to 128 bytes.</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Y</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>Y</td>
+<td>Goods Name / Marking: Cannot exceed 20 alphanumeric or contain special characters.</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID: identification for merchant, assigned by QFPAY to distinguish the different merchants' order in channel system.</td>
+</tr>
+<tr>
+<td>openid</td>
+<td>N</td>
+<td>Alipay OpenID, need for Alipay Service Window pay</td>
+</tr>
+<tr>
+<td>sub_openid</td>
+<td>N</td>
+<td>WeChat OpenID, need for WeChat Official Account pay</td>
+</tr>
+<tr>
+<td>auth_code</td>
+<td>N</td>
+<td>Need for WeChat/Alipay Card Pay</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>N</td>
+<td>Transaction Time zone: record of the order in local time, default time zone is Beijing time UTC+8.</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>N</td>
+<td>Asynchronous notification address when order paid successfully</td>
+</tr>
+<tr>
+<td>limit_pay</td>
+<td>N</td>
+<td>In WeChat QR Pay or Official Account pay, used to limit credit card transaction.</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>N</td>
+<td>Unique Device ID: length limited to 40 bytes.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>Order number on QFPAY side.</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>External Order Number / Developer Platform Order Number.</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Transaction Amount.</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Transaction Currency:  Hong Kong Dollar: HKD / Chinese Yuan: CNY</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Payment Type: <strong>800101</strong> (Alipay QR Code) / <strong>800108</strong> (Alipay Card) / <strong>800107</strong> (Alipay Service Window) / <strong>800201</strong> (WeChat QR Code) / <strong>800208</strong> (WeChat Card) / <strong>800207</strong> (WeChat Official Account)</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format)</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>System time</td>
+</tr>
+<tr>
+<td>qrcode</td>
+<td>Return during QR payment, QR Code URL;</td>
+</tr>
+<tr>
+<td>pay_params</td>
+<td>Parameter to call WeChat Official Account / Alipay Service Window: Payment: <strong>800207</strong> (WeChat Official Account payment) / <strong>800107</strong> (Alipay Service Window)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="order-query">Order Query<a class="headerlink" href="#order-query" title="Permanent link">#</a></h2>
+<p><strong>Note: Merchant should call query API to check the order status after created an order until QFPAY return with the order status</strong>. <strong>and handle according to the orderstatus.</strong></p>
+<p>Mostly cannot query for the order that beyond month, or please input <strong>start_time, end_time</strong> (time section should include <strong>sysdtm</strong>, and should not beyond month) we suggest to take <strong>syssn</strong> as query condition.</p>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post or get under HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/trade/v1/query</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Order query API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameters</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID, identification for merchant, assigned by QFPAY</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>N</td>
+<td>Query for Order number on QFPAY side, use "," to generate them if multiple exist</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>N</td>
+<td>External Order Number / Developer Platform Order Number</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>N</td>
+<td>Payment Type: <strong>800101</strong> (Alipay QR Code) / <strong>800108</strong> (Alipay Card) / <strong>800107</strong> (Alipay Service Window) / <strong>800201</strong> (WeChat QR Code) / <strong>800208</strong> (WeChat Card) / <strong>800207</strong> (WeChat Official Account)</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>N</td>
+<td>Response code of the order requests result, default is to return the <strong>respcd</strong> of all orders</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td>N</td>
+<td>Start time,default set as Beginning of present month. Form: YYYY-MM-DD HH: MM: SS</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>N</td>
+<td>Transaction Time zone: record of the order in local time, default time zone is Beijing time UTC+8.</td>
+</tr>
+<tr>
+<td>page</td>
+<td>N</td>
+<td>Number or pages,default set as 1</td>
+</tr>
+<tr>
+<td>page_size</td>
+<td>N</td>
+<td>Number of Item shown each page, default set as 10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page</td>
+<td><strong>Number of pages</strong></td>
+</tr>
+<tr>
+<td>resperr</td>
+<td>Request result description</td>
+</tr>
+<tr>
+<td>page_size</td>
+<td>Number of Item shown each page, default set as 10</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>Response Code: Code generated from order request.   <strong>0000</strong>: SUCCESS</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Order data shown as <strong>list</strong>, below is field description</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>Order number on QFPAY side</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>External Order number,developer platform order number</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Payment Type: <strong>800101</strong> (Alipay QR Code) / <strong>800108</strong> (Alipay Card) / <strong>800107</strong> (Alipay Service Window) / <strong>800201</strong> (WeChat QR Code) / <strong>800208</strong> (WeChat Card) / <strong>800207</strong> (WeChat Official Account)</td>
+</tr>
+<tr>
+<td>order_type</td>
+<td>Order type: Pay order: Payment / Refund order: Refund / Close order: Close;</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Order payment amount,2 decimal places</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>Order time in system</td>
+</tr>
+<tr>
+<td>cancel</td>
+<td>recall/refund marking   Normal order: 0; Recalled: 2; Refunded: 3</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>Response Code: Code generated from order request. <strong>0000</strong>: SUCCESS / <strong>1143</strong>: IN PROGRESS / <strong>1145</strong>: IN PROGRESS / (any others): FAIL</td>
+</tr>
+<tr>
+<td>errmsg</td>
+<td>Payment result description</td>
+</tr>
+</tbody>
+</table>
+<p><strong>respcd</strong> internal of <strong>data</strong> shown 0000 as payment succeed,</p>
+<p><strong>respcd</strong> external of <strong>data</strong> shown 0000 as order create succeed</p>
+<p><strong>response sample:</strong></p>
+<pre><code>{
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;resperr&quot;: &quot;\\u8bf7\\u6c42\\u6210\\u529f&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;data&quot;: [{
+    &quot;pay_type&quot;: &quot;800208&quot;,
+    &quot;sysdtm&quot;: &quot;2018-01-12 17: 10: 26&quot;,
+    &quot;order_type&quot;: &quot;payment&quot;,
+    &quot;txcurrcd&quot;: &quot;CNY&quot;,
+    &quot;txdtm&quot;: &quot;2018-01-12 17: 10: 32&quot;,
+    &quot;txamt&quot;: &quot;1&quot;,
+    &quot;out_trade_no&quot;: &quot;1301459478787530052&quot;,
+    &quot;syssn&quot;: &quot;20180112000100020001659358&quot;,
+    &quot;cancel&quot;: &quot;0&quot;,
+    &quot;respcd&quot;: &quot;0000&quot;,
+    &quot;errmsg&quot;: &quot;\\u4ea4\\u6613\\u6210\\u529f&quot;
+    }],
+  &quot;page&quot;: 1,
+  &quot;page_size&quot;: 10
+}
+</code></pre>
+
+<h2 id="order-refund">Order Refund<a class="headerlink" href="#order-refund" title="Permanent link">#</a></h2>
+<p><strong>Note: initiate a refund order, merchants' amount of incoming payment should be greater than the amount of the refund, or it will fail. we suggest to make the refund no later than 30 days pass the syssn time of that original order. </strong></p>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post under HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/trade/v1/refund</td>
+</tr>
+<tr>
+<td><strong>Description </strong></td>
+<td>To make refund of a paid order</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameters</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>Y</td>
+<td>Order number on QFPAY side, the <strong>syssn</strong> of the original orders that need this refunding</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>Y</td>
+<td>External Order number,developer platform order number,this parameter cannot be use repeatly each time successfully called payment(refund) API to make an order under the same Mchid,to make sure the trade number unique, length limited at 128 bytle</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Y</td>
+<td>Transaction Amount</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Y</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format)</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID: identification for merchant, assigned by QFPAY to distinguish the different merchants' order in channel system</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>N</td>
+<td>Transaction Time zone: record of the order in local time, default time zone is Beijing time UTC+8.</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>N</td>
+<td>Asynchronous notification address when order paid successfully</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>N</td>
+<td>Unique device ID</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response parameters description:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>Unique serial number for the refund</td>
+</tr>
+<tr>
+<td>orig_syssn</td>
+<td>The serial number of original order that make this refund</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Order payment amount,2 decimal places</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>Order time in system</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response sample:</strong></p>
+<pre><code>{
+  &quot;orig_syssn&quot;: &quot;20180112000100020001659358&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-12 19: 03: 23&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-12 19: 03: 29&quot;,
+  &quot;resperr&quot;: &quot;\\u4ea4\\u6613\\u6210\\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;13014597435743348787530052&quot;,
+  &quot;syssn&quot;: &quot;20180112000100020001661542&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;
+}
+</code></pre>
+
+<h2 id="order-close">Order Close<a class="headerlink" href="#order-close" title="Permanent link">#</a></h2>
+<ol>
+<li>What status must an Order be in to close?</li>
+</ol>
+<p>a.  If an QR Code payment or WeChat Official Account payment order is not paid successfully yet, it can be closed. We do not suggest closing a paid order because the standard of bank support for closing orders is inconsistent, which might cause failure of closing.</p>
+<p>b.  If Card payment (Customer Payment code scan) is not paid successfully yet, it can be closed.</p>
+<p>c.  If the close API is called after a successful payment, the paid money will be refunded because this action is a recall of API.</p>
+<ol>
+<li>What is the use case of close API?</li>
+</ol>
+<p>d.  Only use it for open orders to avoid repeated payment. Do not use the close API instead of refund API because it might cause some unknown errors/</p>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post under Http</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/trade/v1/close</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Close order API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request Parameter:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID, identification for merchant, assigned by QFPAY</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Y</td>
+<td>Order payment amount,2 decimal places</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Y</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>N</td>
+<td>Order number on QFPAY side, should submit at least one of <strong>syssn</strong> or <strong>out_trade_no</strong></td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>N</td>
+<td>External order number,should submit at least one of <strong>syssn</strong> or <strong>out_trade_no</strong></td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>N</td>
+<td>Transaction Time zone: record of the order in local time, default time zone is Beijing time UTC+8</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>N</td>
+<td>Unique device ID</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>syssn</td>
+<td>An unique order number generate by QFPAY when closing an order</td>
+</tr>
+<tr>
+<td>orig_syssn</td>
+<td>The serial number of original order that make this closing</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Order payment amount,2 decimal places</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>Order time in system</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response sample:</strong></p>
+<pre><code>{
+  &quot;orig_syssn&quot;: &quot;20180112000100020001659801&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-12 19: 07: 02&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-12 19: 07: 09&quot;,
+  &quot;resperr&quot;: &quot;\\u4ea4\\u6613\\u6210\\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;syssn&quot;: &quot;20180112000100020001661611&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;
+}
+</code></pre>
+
+<p><strong>Note</strong>: order closing is not generally supported and might be unavailable to close the order. It is not available to close the order if the return code is 1297 or <strong>syssn</strong> field absent the return parameters. Merchant can call refund API if the order is paid already.</p>
+<h2 id="order-remarks">Order Remarks<a class="headerlink" href="#order-remarks" title="Permanent link">#</a></h2>
+<p><strong>Description</strong>: Add remarks to the order; does not support merchants with their own channel</p>
+<p><strong>Basic request information</strong>:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post under HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>URL</strong></td>
+<td>/trade/v1/add_note</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Add remarks to the order</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameters </strong></th>
+<th><strong>Required</strong></th>
+<th><strong>description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>Y</td>
+<td>Code offered by QFPAY</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>Y</td>
+<td>Order number returned by QFPAY after successful transaction</td>
+</tr>
+<tr>
+<td>note</td>
+<td>Y</td>
+<td>Remark information, no longer than 200 bytes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response parameters:</strong></p>
+<pre><code>{&quot;resperr&quot;: &quot;&quot;,&quot;respcd&quot;: &quot;0000&quot;,&quot;respmsg&quot;: &quot;&quot;,&quot;data&quot;: {}}
+</code></pre>
+
+<h2 id="bill-download">Bill Download<a class="headerlink" href="#bill-download" title="Permanent link">#</a></h2>
+<p><strong>Note: the channel system will download the bills the second day and take day as Unit, it includes bill of every merchant. Only available on formal environment. Return as .zip file</strong></p>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Get under http</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/download/v1/trade_bill</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Obtain Bill through the API, and save as .zip file</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>trade_date</td>
+<td>Y</td>
+<td>Exact date of this bill . Sample: 2017-10-17</td>
+</tr>
+</tbody>
+</table>
+<h1 id="_1"><a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="APP-pay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="APP-pay/" class="btn btn-xs btn-link">
+        Value Added Services API
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

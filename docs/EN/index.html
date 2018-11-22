@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MkDocs theme focused on navigation and usability.">
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Windmill MkDocs Theme</title>
+    <link href="./css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="./css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/highlight.css">
+
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/bootstrap-3.3.7.min.js"></script>
+    <script src="./js/highlight.pack.js"></script>
+
+    
+      <script src="./js/elasticlunr.min.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '.';
+      var is_top_frame = (window === window.parent);
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="./js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<nav class="navbar wm-page-top-frame">
+  <div class="container-fluid wm-top-container container-fluid-self">
+    
+    <div class="wm-top-tool pull-left logo-view">
+      <img src="./img/logo.png" alt="">
+      <span>Document Center</span>
+    </div>
+
+    
+    <div class="wm-top-tool pull-right logo-view1">
+      <p><span id='zh-cn'>中文 </span>/<span id='en'> EN</span></p>
+    </div>
+
+    
+    <div class="wm-top-tool pull-right dropdown">
+      <div class="dropdown-inner" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">文档中心</div>
+      <!-- <ul class="dropdown-menu dropdown-menu-self" aria-labelledby="dropdownMenu1">
+        <li><a href="#">API文档</a></li>
+        <li><a href="#">开发指南</a></li>
+        <li><a href="#">帮助中心</a></li>
+      </ul> -->
+    </div>
+
+    
+    <div class="wm-top-tool pull-right dropdown">
+      <div class="dropdown-inner" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">管理中心</div>
+    </div>
+
+    
+    <div class="wm-top-tool pull-right wm-vcenter">
+      <form class="dropdown wm-vcentered" id="wm-search-form" action="./search.html">
+        
+        <button id="wm-search-show" class="btn btn-sm btn-default" type="submit"
+          ><i class="fa fa-search" aria-hidden="true"></i></button>
+
+        <div class="input-group input-group-sm wm-top-search">
+          <input type="text" name="q" class="form-control" id="mkdocs-search-query" placeholder="搜索" autocomplete="off">
+          <span class="input-group-btn" role="search">
+            
+            <button class="btn btn-default dropdown-toggle collapse" data-toggle="dropdown" type="button"><span class="caret"></span></button>
+            <ul id="mkdocs-search-results" class="dropdown-menu dropdown-menu-right"></ul>
+            <button id="wm-search-go" class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="wm-top-tool wm-vcenter pull-right wm-small-left">
+      <button id="wm-toc-button" type="button" class="btn btn-sm btn-default wm-vcentered"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+    </div>
+
+    <!-- 
+    
+    <div class="wm-top-tool pull-right wm-vcenter">
+      <div class="btn-group wm-vcentered" role="group" aria-label="back">
+        <button id="hist-back" type="button" class="btn btn-sm btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        <button id="hist-fwd" type="button" class="btn btn-sm btn-default"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+     -->
+
+    <!-- 
+    
+    <a href="" class="wm-top-brand wm-top-link wm-vcenter">
+      
+      <div class="wm-top-title">
+        Windmill MkDocs Theme<br>
+        
+          <span class="wm-top-version">v0.1.6</span>
+        
+      </div>
+    </a> -->
+  </div>
+</nav>
+  <div id="main-content" class="wm-page-top-frame">
+    
+<nav class="wm-toc-pane">
+  <ul class="wm-toctree">
+        <li class="wm-toc-li wm-toc-lev1 "><a href="/MKDOCS/site/" class="wm-toc-text">QFPAY API V3.2</a>
+    <!-- <span class="wm-toc-text">QFPAY API V3.2</span> -->
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="developer/" class="wm-article-link wm-toc-text">Developer Instructions</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="wechat-account/" class="wm-article-link wm-toc-text">Official Account WECHAT</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="wechat-mini/" class="wm-article-link wm-toc-text">Applet WECHAT</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="alipay/" class="wm-article-link wm-toc-text">Service Window ALIPAY</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="scancode/" class="wm-article-link wm-toc-text">QR Code WECHAT ALIPAY</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="card-pay/" class="wm-article-link wm-toc-text">Card WECHAT ALIPAY</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="APP-pay/" class="wm-article-link wm-toc-text">Value Added Services API</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="API-Instructions/" class="wm-article-link wm-toc-text">API Instructions</a>
+</li>
+  </ul>
+</nav>
+    <div class="wm-content-pane">
+      <iframe class="wm-article" name="article"></iframe>
+    </div>
+  </div>
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="developer/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="developer/" class="btn btn-xs btn-link">
+        Developer Instructions
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <p><strong>QFPAY API V3.2</strong></p>
+<p><strong>Version History</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Version NO.</strong></th>
+<th><strong>Status</strong></th>
+<th><strong>Change description</strong></th>
+<th><strong>Change confirm</strong></th>
+<th><strong>Date</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QT1.1</td>
+<td>Draft</td>
+<td>Original Draft Ver.</td>
+<td></td>
+<td>2018/01/16</td>
+</tr>
+<tr>
+<td>QT1.2</td>
+<td></td>
+<td></td>
+<td>Added Applet Payment</td>
+<td>2018/02/07</td>
+</tr>
+<tr>
+<td>QT1.3</td>
+<td></td>
+<td></td>
+<td>Modified Official Account retrieve oauth_code, added scenarios description</td>
+<td>2018/03/14</td>
+</tr>
+<tr>
+<td>QT2.0</td>
+<td></td>
+<td></td>
+<td>Added abroad payment type assistance/Time zone</td>
+<td>2018/09/13</td>
+</tr>
+<tr>
+<td>QT3.0</td>
+<td></td>
+<td></td>
+<td>Add pay_tag field</td>
+<td>2018/09/21</td>
+</tr>
+<tr>
+<td>QT3.1</td>
+<td></td>
+<td></td>
+<td>Add Order Remark API</td>
+<td>2018/10/11</td>
+</tr>
+<tr>
+<td>QT3.2</td>
+<td></td>
+<td></td>
+<td>Reformat and update TOC</td>
+<td>2018/10/24</td>
+</tr>
+<tr>
+<td>QT3.3</td>
+<td><strong>Draft</strong></td>
+<td></td>
+<td>Add Value Added Services (VAS) API</td>
+<td>2018/11/09</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: Please review the 'Developer Instructions' carefully before working with QFPAY API, the Developer Instructions contains environment instruction, request signature method, request instruction, return signature verification, asynchronous notification etc. The calling methods for various payment functions under Alipay and WeChat Pay: Official Account, Applet, Service Window, QR Code, and Card are described in the body of the QFPAY API. Lastly, please review the 'API Instructions' for refund function call, query function etc.</p>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="developer/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="developer/" class="btn btn-xs btn-link">
+        Developer Instructions
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

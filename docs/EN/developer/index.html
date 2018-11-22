@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Developer Instructions - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Developer Instructions", url: "#_top", children: [
+              {title: "Environment Description", url: "#environment-description" },
+              {title: "Signature Verification", url: "#signature-verification" },
+              {title: "Request Description", url: "#request-description" },
+              {title: "Response Description", url: "#response-description" },
+              {title: "Asynchronous Notification", url: "#asynchronous-notification" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="wechat-account/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="wechat-account/" class="btn btn-xs btn-link">
+        Official Account WECHAT
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="" class="btn btn-xs btn-link">
+        QFPAY API V3.2
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h1 id="developer-instructions">Developer Instructions<a class="headerlink" href="#developer-instructions" title="Permanent link">#</a></h1>
+<h2 id="environment-description">Environment Description<a class="headerlink" href="#environment-description" title="Permanent link">#</a></h2>
+<p><strong>There're two environments of QFPAY API</strong></p>
+<p><strong>Test environment:</strong> for testing with the code and key.</p>
+<p><strong>Official environment:</strong> for business use.</p>
+<ul>
+<li>To test code and key without settlement. Please test with small amount.</li>
+<li>MCHID can be found in channel system. The channel system entrance will be provided to merchants after applying the formal code and key.</li>
+<li>Every channel has its unique code and key, sub-merchants can use the same code and key.</li>
+</ul>
+<p><strong>API requesting URL:</strong></p>
+<p><strong>Test environment:</strong> https: //openapi-test.qfpay.com</p>
+<p><strong>Formal environment:</strong> https://openapi.qfpay.com</p>
+<p><strong>Support API list: </strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>API instruction: </strong></th>
+<th><strong>API address: </strong></th>
+<th><strong>API description</strong></th>
+<th><strong>Request method &amp; description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Order Payment</strong></td>
+<td>/trade/v1/payment</td>
+<td>Call payment API,for placing order or initiate payment</td>
+<td>Post or Get under Http(<strong>form</strong> submission)</td>
+</tr>
+<tr>
+<td><strong>Order query</strong></td>
+<td>/trade/v1/query</td>
+<td>Query order information,for success order</td>
+<td>Post or Get under Http</td>
+</tr>
+<tr>
+<td><strong>Order refund</strong></td>
+<td>/trade/v1/refund</td>
+<td>For refund</td>
+<td>Post under Http</td>
+</tr>
+<tr>
+<td><strong>Order close</strong></td>
+<td>/tarde/v1/close</td>
+<td>Close order</td>
+<td>Post under Http</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Encoding Description</strong></p>
+<p>All return parameters from API are in UTF-8 code unless specific description given.</p>
+<h2 id="signature-verification">Signature Verification<a class="headerlink" href="#signature-verification" title="Permanent link">#</a></h2>
+<p>All signatures to request API are in this form unless specific description given.</p>
+<p><strong>Signature method for requesting API parameters: </strong></p>
+<p><strong>Step 1:</strong> Sort all parameters in ascending order according to parameter names</p>
+<ul>
+<li>Parameter list: abc=value1 bcd=value2 bad=value3</li>
+<li>Sort result: abc=value1 bad=value3 bcd=value2</li>
+</ul>
+<p><strong>Step 2:</strong> Connect all parameters with '&amp;',and get the string to be signed</p>
+<ul>
+<li>abc=value1&amp;bad=value3&amp;bcd=value2</li>
+</ul>
+<p><strong>Step 3:</strong> Combine the string with <strong>Key</strong> from developer.</p>
+<ul>
+<li>abc=value1&amp;bad=value3&amp;bcd=value2<strong>Key</strong></li>
+</ul>
+<p><strong>Step 4:</strong> MD5 Operate the combined string.</p>
+<ul>
+<li>MD5(abc=value1&amp;bad=value3&amp;bcd=value2<strong>Key</strong>)</li>
+</ul>
+<p><strong>Step 5:</strong> Request API with the signature。</p>
+<ul>
+<li>Save the signature in X-QF-SIGN in the http header field</li>
+</ul>
+<p><strong>Python sample for signature requesting</strong></p>
+<pre><code>import hashlib
+
+unicode_to_utf8 = lambda s: s.encode('utf-8') if isinstance(s, unicode) else s
+
+# request signature data as data dictionary
+
+def make_req_sign(data, key):
+
+keys = data.keys()
+
+keys.sort()
+
+p = []
+
+for k in keys:
+
+k = unicode_to_utf8(k)
+
+v = unicode_to_utf8(data[k])
+
+p.append('%s=%s'%(k,v))
+
+unsign_str = '&amp;'.join(p) + unicode_to_utf8(key)
+
+s = hashlib.md5(unsign_str).hexdigest()
+
+return s.upper()
+</code></pre>
+
+<h2 id="request-description">Request Description<a class="headerlink" href="#request-description" title="Permanent link">#</a></h2>
+<p><strong>Required parameter settings in HTTP header field to request API: </strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>X-QF-APPCODE</strong></td>
+<td><strong>Y</strong></td>
+<td><strong>app_code:</strong> the only marking assigned to developers by QFPAY.</td>
+</tr>
+<tr>
+<td><strong>X-QF-SIGN</strong></td>
+<td><strong>Y</strong></td>
+<td><strong>signature</strong>: following the signature algorithm</td>
+</tr>
+</tbody>
+</table>
+<h2 id="response-description">Response Description<a class="headerlink" href="#response-description" title="Permanent link">#</a></h2>
+<p><strong>Note</strong>: after successfully requested, API will return information in <strong>JSON</strong> form. This is for developers to obtain API return parameters and verify the signature of the return information.</p>
+<p><strong>Parameters of the return HTTP header field: </strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X-QF-SIGN</td>
+<td>&gt; Obtain the <strong>SIGN</strong> string of http header field. Combine <strong>KEY</strong> with the original return parameters, then do it with MD5 algorithm <em>MD5(body+key)</em> to get the signature, then check if it is same as the content of <strong>SIGN</strong> string.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Header field SIGN sample:</strong></p>
+<pre><code>{
+  'Server': 'nginx',
+  'Date': 'Fri, 12 Jan 2018 11: 31: 18 GMT',
+  'Content-Type': 'application/json; charset=UTF-8',
+  'Content-Length': '302',
+  'Connection': 'keep-alive',
+  'X-QF-SIGN': '1E2CE7C2A7F8F581C354A857182B7A31',
+  'X-Powered-By': 'QF/1.1'
+}
+</code></pre>
+
+<p><strong>Public return parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>respcd</td>
+<td>Response Code: Code generated from order request. <strong>0000</strong>: SUCCESS / <strong>1143</strong>: IN PROGRESS / <strong>1145</strong>: IN PROGRESS / (any others): FAIL</td>
+</tr>
+<tr>
+<td>Resperr</td>
+<td>Information Description</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Payment Type</td>
+</tr>
+<tr>
+<td>respmsg</td>
+<td>Debug Message</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Compare SIGN with the return parameter verified signature:</strong></p>
+<pre><code>MD5 content: {
+  &quot;pay_type&quot;: &quot;800108&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-12 19: 31: 16&quot;,
+  &quot;cardcd&quot;: &quot;2088802362210279&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-12 19: 31: 22&quot;,
+  &quot;resperr&quot;: &quot;\\u4ea4\\u6613\\u6210\\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;130145934788787530052&quot;,
+  &quot;syssn&quot;: &quot;20180112000100020001662134&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;
+}
+615ED178BA524459976CE40FAB78000F
+
+MD5 result: 1E2CE7C2A7F8F581C354A857182B7A31
+</code></pre>
+
+<h2 id="asynchronous-notification">Asynchronous Notification<a class="headerlink" href="#asynchronous-notification" title="Permanent link">#</a></h2>
+<p><strong>Note:</strong> Asynchronous Notification address is provided by the Channel system and QFPAY technical supports will set them up. Only one <a href="#目录异步通知">Asynchronous</a> Notification address can be set up for each set of Code &amp; Key, but it can be modified. Successfully paid orders will return <a href="#目录异步通知">Asynchronous</a> Notification results. Please call the query API to inquire since the <a href="#目录异步通知">Asynchronous</a> Notification might be delayed because of external factors. We suggest to use query API in conjunction with the Asynchronous Notification. Asynchronous Notification only works with port 80 and 443 and doesn't work with custom port out of security concerns.</p>
+<p><strong>Asynchronous Notification send rules:</strong></p>
+<ol>
+<li>Provide the notification address to QFPAY technical support, who will configure it in the background system.</li>
+<li>QFPAY will <strong>POST</strong> the information to the notification address in <strong>JSON</strong> form after success order.</li>
+<li>Developer need to provide QFPAY with <strong>SUCCESS</strong> response string after receiving Asynchronous Notification and successful signature verification.</li>
+<li>QFPAY will send asynchronous notification in 2m, 10m, 10m, 60m, 2h, 6h, 15h if received other response except the <strong>SUCCESS</strong> string, and will stop sending notification when the <strong>SUCCESS</strong> string is received.</li>
+</ol>
+<p><strong>Signature algorithm verification in Asynchronous notification:</strong></p>
+<p><strong>Step 1:</strong> Obtain the signature from the X-QF-SIGN field in http header</p>
+<p><strong>Step 2:</strong> Combine the key with the original content in the <strong>Body</strong> of http response message, and get the string to be verified</p>
+<p><strong>Step 3:</strong> MD5 Operate the string.</p>
+<p><strong>Step 4:</strong> Compare the MD5 result with the signature of X-QF-SIGN to verify if they are identical, return SUCCESS as verify succeed if they are identical</p>
+<p><strong>Python sample for signature verification:</strong></p>
+<pre><code>import hashlib
+
+unicode_to_utf8 = lambda s: s.encode('utf-8') if isinstance(s, unicode) else s
+
+# Signature response data: the entire content data string to be returned
+
+def make_resp_sign(data, key):
+
+unsign_str = unicode_to_utf8(data) + unicode_to_utf8(key)
+
+s = hashlib.md5(unsign_str).hexdigest()
+
+return s.upper()
+</code></pre>
+
+<p><strong>Response parameters of asynchronous notification:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>notify_type </strong></td>
+<td>Notification Type: payment / refund / close</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>Order Ticket Number</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>External Order Number defined by developer</td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Payment Type: <strong>800101</strong> (Alipay QR Code) / <strong>800108</strong> (Alipay Card) / <strong>800107</strong> (Alipay Service Window) / <strong>800201</strong> (WeChat QR Code) / <strong>800208</strong> (WeChat Card) / <strong>800207</strong> (WeChat Official Account)</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Time of order create;</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Order payment amount,2 decimal places;</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>Return code of order, default is set to return all the status of order</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>Order time in system</td>
+</tr>
+<tr>
+<td>paydtm</td>
+<td>Time of order payment</td>
+</tr>
+<tr>
+<td>cancel</td>
+<td>Recall /refund mark Done normally: 0; recalled: 2; refunded: 3;</td>
+</tr>
+<tr>
+<td>cardcd</td>
+<td><strong>openid</strong> parameter for WeChat/ Alipay user;</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>Goods name or marking;</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Code of payment status: 1: paid successfully;</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Currency: Hong Kong Dollar: HKD ; China Yuan: CNY;</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Merchant ID;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sample of Asynchronous notification Return parameters :</strong></p>
+<pre><code>{
+  &quot;status&quot;: &quot;1&quot;,
+  &quot;sysdtm&quot;: &quot;2017-12-28 13: 41: 47&quot;,
+  &quot;paydtm&quot;: &quot;2017-12-28 13: 42: 20&quot;,
+  &quot;goods_name&quot;: &quot;&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;mchid&quot;: &quot;XXxxxx&quot;,
+  &quot;cancel&quot;: &quot;0&quot;,
+  &quot;pay_type&quot;: &quot;800207&quot;,
+  &quot;cardcd&quot;: &quot;oo3Lss1m9-eHSEyY2OGKzxFaRflY&quot;,
+  &quot;txdtm&quot;: &quot;2017-12-28 13: 41: 47&quot;,
+  &quot;txamt&quot;: &quot;200&quot;,
+  &quot;out_trade_no&quot;: &quot;BO201712280117290001&quot;,
+  &quot;syssn&quot;: &quot;20171228000300020044178249&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;goods_info&quot;: &quot;&quot;,
+  &quot;notify_type&quot;: &quot;payment&quot;
+}
+</code></pre>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="wechat-account/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="wechat-account/" class="btn btn-xs btn-link">
+        Official Account WECHAT
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="" class="btn btn-xs btn-link">
+        QFPAY API V3.2
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

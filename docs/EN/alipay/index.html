@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Service Window ALIPAY - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Service Window | ALIPAY", url: "#_top", children: [
+              {title: "Obtain OpenID", url: "#obtain-openid" },
+              {title: "Request Payment API", url: "#request-payment-api" },
+              {title: "Call Cashier Pay", url: "#call-cashier-pay" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="scancode/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="scancode/" class="btn btn-xs btn-link">
+        QR Code WECHAT ALIPAY
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="wechat-mini/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="wechat-mini/" class="btn btn-xs btn-link">
+        Applet WECHAT
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h1 id="service-window-124-alipay">Service Window | ALIPAY<a class="headerlink" href="#service-window-124-alipay" title="Permanent link">#</a></h1>
+<p><strong>Scenario:</strong> Customer can call Alipay payment in Alipay H5 webpage or Alipay service window, then enter password to pay.</p>
+<h2 id="obtain-openid">Obtain OpenID<a class="headerlink" href="#obtain-openid" title="Permanent link">#</a></h2>
+<p>Obtain user_id from <strong>oauth</strong> in Alipay production environment, please refer to: <a href="https://docs.open.alipay.com/289/105656">https: //docs.open.alipay.com/289/105656</a></p>
+<h2 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h2>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post under Http</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Initiate order payment API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter </strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>Y</td>
+<td>Transaction Amount: 2 decimal places</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Y</td>
+<td>Transaction Currency: Hong Kong Dollar: HKD / China Yuan: CNY / Japanese Yen: JPY / US Dollar: USD / UAE Dirham: AED / <strong>Thai Baht: THB</strong></td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Y</td>
+<td>Pay type: Alipay Service Window (800107)</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>Y</td>
+<td>External Order number,developer platform order number,this parameter cannot be use repeatedly each time successfully called payment(refund) API to make an order under the same Mchid,to make sure the trade number unique, length limited at 128 bytes</td>
+</tr>
+<tr>
+<td>openid</td>
+<td>Y</td>
+<td><strong>user_id</strong> obtained during the former process    Sample: 2088802811715388</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>Y</td>
+<td>Goods name or marking, suggest not to exceed 20 alphanumeric and doesn't contain special character</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID, identification for merchant,assigned by QFPAY(to distinguish the different merchants' order in channel system).</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>N</td>
+<td>Time zone,to record the domestic order time, default time zone is Beijing time+0800</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>N</td>
+<td>Asynchronous notification address when order paid successfully</td>
+</tr>
+<tr>
+<td>limit_pay</td>
+<td>N</td>
+<td>Use to limit credit card transaction</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>N</td>
+<td>Unique device id</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pay_type</td>
+<td>Pay type  Alipay service window pay: 800107</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>System time</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Order time   Form: YYYY-MM-DD HH: MM: SS</td>
+</tr>
+<tr>
+<td>resperr</td>
+<td>Response description</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Currency Hongkong Dollar: HKD ; China Yuan: CNY</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Order payment amount,2 decimal places</td>
+</tr>
+<tr>
+<td>respmsg</td>
+<td>Debug information</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>External Order number,developer platform order number</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>Order number on QFPAY side</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>Response Code: Code generated from order request. <strong>0000</strong>: SUCCESS / <strong>1143</strong>: IN PROGRESS / <strong>1145</strong>: IN PROGRESS / (any others): FAIL</td>
+</tr>
+<tr>
+<td>pay_params</td>
+<td>Parameter that initiates Alipay, please refer to the below pay_params</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sample of how to find pay_params</strong></p>
+<pre><code>{
+  &quot;pay_type&quot;: &quot;800107&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-11 18: 44: 59&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-11 18: 45: 03&quot;,
+  &quot;resperr&quot;: &quot;\\u4ea4\\u6613\\u6210\\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;130145478743444389767778530052&quot;,
+  &quot;syssn&quot;: &quot;20180111000100020001649385&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;pay_params&quot;: {
+    &quot;tradeNO&quot;: &quot;2018011121001004380248132360&quot;
+  }
+}
+</code></pre>
+
+<h2 id="call-cashier-pay">Call Cashier Pay<a class="headerlink" href="#call-cashier-pay" title="Permanent link">#</a></h2>
+<p>Call Alipay on webpage, please refer to: <a href="https://docs.open.alipay.com/common/105591">https: //docs.open.alipay.com/common/105591</a></p>
+<p><strong>Receive Asynchronous notification after successful payment</strong></p>
+<p><strong>Note:</strong> please call the query API to inquire because the <a href="#目录异步通知">Asynchronous</a> notification might be delayed because of external factors, we suggest to use query API together with the asynchronous notification. for safety consideration, asynchronous notification only work with port 80 and 443 and doesn't work with custom port.</p>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="scancode/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="scancode/" class="btn btn-xs btn-link">
+        QR Code WECHAT ALIPAY
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="wechat-mini/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="wechat-mini/" class="btn btn-xs btn-link">
+        Applet WECHAT
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>

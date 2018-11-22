@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Hu jiajia">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Official Account WECHAT - Windmill MkDocs Theme</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Official Account | WECHAT", url: "#_top", children: [
+              {title: "Obtain OAuth Code", url: "#obtain-oauth-code" },
+              {title: "Obtain OpenID", url: "#obtain-openid" },
+              {title: "Request Payment API", url: "#request-payment-api" },
+              {title: "Call WeChat Pay", url: "#call-wechat-pay" },
+              {title: "Official Account Real Name Registration", url: "#official-account-real-name-registration" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="wm-page-content content-position">
+  <a name="_top"></a>
+  <!-- 页面中的next按钮 注释掉 下同 -->
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="wechat-mini/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="wechat-mini/" class="btn btn-xs btn-link">
+        Applet WECHAT
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="developer/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="developer/" class="btn btn-xs btn-link">
+        Developer Instructions
+      </a>
+    </div>
+    
+  </div>
+ -->
+    
+
+    <h1 id="official-account-124-wechat">Official Account | WECHAT<a class="headerlink" href="#official-account-124-wechat" title="Permanent link">#</a></h1>
+<p><strong>Scenario</strong>: only supports H5 mobile web page in WeChat environment in this scenario and doesn't support WeChat Official Account page. Merchant should use real name registration if they require customer to make payment inside the Official Account page (please refer to <a href="#official-account-real-name-registration">Real name registered Official Account pay</a> for this payment process). Payment is allowed in Official Account after real name is registered.</p>
+<h2 id="obtain-oauth-code">Obtain OAuth Code<a class="headerlink" href="#obtain-oauth-code" title="Permanent link">#</a></h2>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request type </strong></th>
+<th>Get under HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/tool/v1/get_weixin_oauth_code</td>
+</tr>
+<tr>
+<td><strong>Description </strong></td>
+<td>obtain <strong>code</strong> from <strong>oauth</strong> in WeChat, put the <strong>app_code</strong> and <strong>sign</strong> in the parameter <strong>get</strong> instead of HTTP header, merchant should call this URL in WeChat environment.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_code</td>
+<td>Y</td>
+<td>Developer identification code,string <strong>app_code</strong> assigned by QFPAY.</td>
+</tr>
+<tr>
+<td>redirect_uri</td>
+<td>Y</td>
+<td>Redirect URL, will redirect to this address and obtain <strong>code</strong> from the parameter <strong>get</strong> in the address. The address keeps on record, only do encode during request.</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID, identification for merchant, assigned by QFPAY (to distinguish the different merchants' order in channel system).</td>
+</tr>
+<tr>
+<td>sign</td>
+<td>Y</td>
+<td>Signature obtained by unified signature type.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request sample:</strong></p>
+<pre><code>https://openapi-test.qfpay.com/tool/v1/get_weixin_oauth_code?app_code=4A7D18AF8496425193E510DEC8E9526F&amp;redirect_uri=http://test.qfpay.com/get_code7&amp;mchid=ZKWjSzbb&amp;sign=3F4EED65F68FD5FA0C0AE5794A3AB6D9
+</code></pre>
+
+<h2 id="obtain-openid">Obtain OpenID<a class="headerlink" href="#obtain-openid" title="Permanent link">#</a></h2>
+<p><strong>Note</strong>: follow the process to obtain oauth_code of WeChat and obtain OpenID every time payment is called.</p>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request type</strong></th>
+<th>Get under Http</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/tool/v1/get_weixin_openid  <strong>Description </strong> :Obtain openid,should put <strong>X-QF-APPCODE</strong> and <strong>X-QF-SIGN</strong> in http header</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>Y</td>
+<td>Code obtained before getting <strong>oauth_code</strong>, cannot use repeatedly</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID, identification for merchant,assigned by QFPAY(can be seen in channel system).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameters </strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openid</td>
+<td>openid of WeChat,different from other merchants' openid</td>
+</tr>
+</tbody>
+</table>
+<h2 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h2>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request method</strong></th>
+<th>Post under HTTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request address</strong></td>
+<td>/trade/v1/payment</td>
+</tr>
+<tr>
+<td><strong>Description </strong></td>
+<td>Initiate payment API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter </strong></th>
+<th><strong>Required </strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>txamt</td>
+<td>Y</td>
+<td>Transaction Amount</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Y</td>
+<td>Transaction Currency: Hong Kong Dollar: HKD / China Yuan: CNY / Japanese Yen: JPY / US Dollar: USD / UAE Dirham: AED / <strong>Thai Baht: THB</strong></td>
+</tr>
+<tr>
+<td>pay_type</td>
+<td>Y</td>
+<td>Payment Type: 800207 (WeChat Official Account)</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>Y</td>
+<td>External Order Number / Developer Platform Order Number: This parameter cannot be used repeatedly to call payment (refund) API and make an order under the same MCHID. To ensure the trade number is unique, length is limited to 128 bytes.</td>
+</tr>
+<tr>
+<td>sub_openid</td>
+<td>Y</td>
+<td>WeChat OpenID: Obtained during the process above.</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>Y</td>
+<td>Goods Name / Marking: Cannot exceed 20 alphanumeric or contain special characters.</td>
+</tr>
+<tr>
+<td>mchid</td>
+<td>Y</td>
+<td>Merchant ID: identification for merchant, assigned by QFPAY to distinguish the different merchants' order in channel system</td>
+</tr>
+<tr>
+<td>txzone</td>
+<td>N</td>
+<td>Transaction Time zone: record of the order in local time, default time zone is Beijing time UTC+8</td>
+</tr>
+<tr>
+<td>return_url</td>
+<td>N</td>
+<td>Asynchronous notification address when order paid successfully</td>
+</tr>
+<tr>
+<td>limit_pay</td>
+<td>N</td>
+<td>Used to limit credit card transaction</td>
+</tr>
+<tr>
+<td>udid</td>
+<td>N</td>
+<td>Unique device id</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter </strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pay_type</td>
+<td>Payment Type: <strong>800207</strong> (WeChat Official Account)</td>
+</tr>
+<tr>
+<td>sysdtm</td>
+<td>System Time.</td>
+</tr>
+<tr>
+<td>txdtm</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
+</tr>
+<tr>
+<td>resperr</td>
+<td>Response Error: Error description.</td>
+</tr>
+<tr>
+<td>txcurrcd</td>
+<td>Transaction Currency: Hong Kong Dollar: HKD / Chinese Yuan: CNY.</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Order payment amount, 2 decimal places.</td>
+</tr>
+<tr>
+<td>respmsg</td>
+<td>Response Message: Used for debugging.</td>
+</tr>
+<tr>
+<td>out_trade_no</td>
+<td>External Order Number / Developer Platform Order Number.</td>
+</tr>
+<tr>
+<td>syssn</td>
+<td>Order Number: QFPAY generated.</td>
+</tr>
+<tr>
+<td>respcd</td>
+<td>Response Code: Code generated from order request.   <strong>0000</strong>: SUCCESS / <strong>1143</strong>: IN PROGRESS / <strong>1145</strong>: IN PROGRESS / (any others): FAIL</td>
+</tr>
+<tr>
+<td>pay_params</td>
+<td>Payment Parameters: initiates WeChat Pay, please refer to the below response sample.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response sample</strong></p>
+<pre><code>{
+  &quot;pay_type&quot;: &quot;800207&quot;,
+  &quot;sysdtm&quot;: &quot;2018-01-15 10: 45: 44&quot;,
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;txdtm&quot;: &quot;2018-01-15 10: 45: 43&quot;,
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,
+  &quot;txcurrcd&quot;: &quot;CNY&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;respmsg&quot;: &quot;&quot;,
+  &quot;out_trade_no&quot;: &quot;13054541930052&quot;,
+  &quot;syssn&quot;: &quot;20180115000100020001689938&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;pay_params&quot;: {
+    &quot;package&quot;: &quot;prepay_id=wx20180115104545871fa226d10608087535&quot;,
+    &quot;timeStamp&quot;: &quot;1515984345463&quot;,
+    &quot;signType&quot;: &quot;MD5&quot;,
+    &quot;paySign&quot;: &quot;E75ED8747CFB0F00DEDBD97FB8D92E9E&quot;,
+    &quot;appId&quot;: &quot;wx290ce4878c94369d&quot;,
+    &quot;nonceStr&quot;: &quot;1515984345463&quot;
+  }
+}
+</code></pre>
+
+<h2 id="call-wechat-pay">Call WeChat Pay<a class="headerlink" href="#call-wechat-pay" title="Permanent link">#</a></h2>
+<p><strong>pay_params field of return parameters:</strong></p>
+<pre><code>{
+  &quot;package&quot;: &quot;prepay_id=wx20180115104545871fa226d10608087535&quot;,
+  &quot;timeStamp&quot;: &quot;1515984345463&quot;,
+  &quot;signType&quot;: &quot;MD5&quot;,
+  &quot;paySign&quot;: &quot;E75ED8747CFB0F00DEDBD97FB8D92E9E&quot;,
+  &quot;appId&quot;: &quot;wx290ce4878c94369d&quot;,
+  &quot;nonceStr&quot;: &quot;1515984345463&quot;
+}
+</code></pre>
+
+<p><strong>Go to payment page</strong></p>
+<p><strong>Note</strong>: directly <strong>get</strong> the related parameter to the page, no need to define X-QF-APPCODE</p>
+<p>or X-QF-SIGN in http header during this step</p>
+<p><strong>Basic request information:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Request address</strong></th>
+<th><a href="https://o2.qfpay.com/q/direct">https: //o2.qfpay.com/q/direct</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Description</strong></td>
+<td><strong>get</strong> the parameter to this appointed page and finish payment after obtained the payment parameters</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Required</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mchntnm</td>
+<td>Y</td>
+<td>Custom goods name, need to <strong>urlencode</strong> this parameter if it's in Chinese</td>
+</tr>
+<tr>
+<td>txamt</td>
+<td>Y</td>
+<td>Amount</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>Y</td>
+<td>Custom goods name, need to <strong>urlencode</strong> this parameter if it's in Chinese</td>
+</tr>
+<tr>
+<td>redirect_url</td>
+<td>Y</td>
+<td>Redirect address after Payment, (<strong>urlencode</strong> this parameter)</td>
+</tr>
+<tr>
+<td>package</td>
+<td>Y</td>
+<td>Parameter return from WeChat after calling payment API</td>
+</tr>
+<tr>
+<td>timeStamp</td>
+<td>Y</td>
+<td>Parameter return from WeChat after calling payment API</td>
+</tr>
+<tr>
+<td>signType</td>
+<td>Y</td>
+<td>Parameter return from WeChat after calling payment API</td>
+</tr>
+<tr>
+<td>paySign</td>
+<td>Y</td>
+<td>Parameter return from WeChat after calling payment API(<strong>urlencode</strong> this parameter)</td>
+</tr>
+<tr>
+<td>appId</td>
+<td>Y</td>
+<td>Parameter return from WeChat after calling payment API</td>
+</tr>
+<tr>
+<td>nonceStr</td>
+<td>Y</td>
+<td>Parameter return from WeChat after calling payment API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Receive Asynchronous notification after successful payment</strong></p>
+<p><strong>Note:</strong> please call the query API to inquire because the <a href="#目录异步通知">Asynchronous</a> notification might be delayed because of external factors, we suggest to use query API together with the asynchronous notification. for safety consideration, asynchronous notification only work with port 80 and 443 and doesn't work with custom port.</p>
+<h2 id="official-account-real-name-registration">Official Account Real Name Registration<a class="headerlink" href="#official-account-real-name-registration" title="Permanent link">#</a></h2>
+<ol>
+<li>Initiate payment is allowed in real name registered Official Account after finished QFPAY real name registration and works, and the paying process will be different from <a href="#official-account-wechat">Official Account pay</a> developer should obtain <strong>openid</strong> from WeChat, please refer to the document provided by WeChat:</li>
+</ol>
+<p><a href="http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html">http: //mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html</a></p>
+<ol>
+<li>
+<p>request the QFPAY order payment API <strong>/trade/v1/payment</strong> with the obtained <strong>openid</strong> , please refer to the process of <a href="#request-payment-api">request payment API</a> in WeChat Official Account pay, and obtain information in the returned <strong>pay_params</strong></p>
+</li>
+<li>
+<p>initiate collection on the page of <strong>JSAPI payment authorization cast</strong> during real name registration instead of the QFPAY appointed(https: //o2.qfpay.com/q/direct)to call WeChat Pay.</p>
+</li>
+</ol>
+<p>Please refer to the document provided by WeChat: <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6">https: //pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&amp;index=6</a></p>
+<h1 id="_1"><a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+
+  <br>
+  <!--
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="wechat-mini/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="wechat-mini/" class="btn btn-xs btn-link">
+        Applet WECHAT
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="developer/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="developer/" class="btn btn-xs btn-link">
+        Developer Instructions
+      </a>
+    </div>
+    
+  </div>
+
+    <br> -->
+</div>
+
+</body>
+<script type="text/javascript">
+// 语言切换跳转
+$('#zh-cn').on('click', function (e) {
+  var languageType = window.location.href.indexOf('zh-cn');
+  if (languageType !== -1) {
+    console.log(12345);
+  }
+});
+
+$('#en').on('click', function (e) {
+  var languageType = window.location.href.indexOf('en');
+  if (languageType !== -1) {
+    console.log(54321);
+  }
+});
+
+</script>
+</html>
