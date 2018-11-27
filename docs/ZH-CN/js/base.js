@@ -1,4 +1,4 @@
-/* global window, document, $, hljs, elasticlunr, base_url, is_top_frame */
+/* global window, document, $, hljs, elasticlunr, cn, stemmerSupport, base_url, is_top_frame */
 /* exported getParam, onIframeLoad */
 "use strict";
 
@@ -369,12 +369,18 @@ var searchIndexReady = false;
 /**
  * Initialize search functionality.
  */
+ // stemmerSupport(lunr);
+ // TinySegmenter(lunr);
+ // cn(elasticlunr)
+ // console.log(TinySegmenter)
+
 function initSearch() {
   // Create elasticlunr index.
   searchIndex = elasticlunr(function() {
-    this.setRef('location');
+    this.use(elasticlunr.cn);
     this.addField('title');
     this.addField('text');
+    this.setRef('location');
   });
 
   var searchBox = $('#mkdocs-search-query');

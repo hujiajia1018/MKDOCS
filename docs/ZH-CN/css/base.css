@@ -35,6 +35,10 @@ body {
 .content-position {
   padding-left: 20px;
 }
+#zh_cn {
+  color: #409eff;
+}
+
 
 .wm-page-top-frame { display: none; }
 .wm-top-page > .wm-page-top-frame { display: block; }
@@ -591,4 +595,7 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
 }
 .logo-view1 > p > span {
   cursor: pointer;
+}
+.logo-view1 > p > span:hover {
+  color: #409eff;
 }

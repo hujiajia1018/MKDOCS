@@ -30,7 +30,8 @@
         var pageToc = [
           {title: "Service Window | ALIPAY", url: "#_top", children: [
               {title: "Obtain OpenID", url: "#obtain-openid" },
-              {title: "Request Payment API", url: "#request-payment-api" },
+          ]},
+          {title: "3 Request Payment API", url: "#3-request-payment-api", children: [
               {title: "Call Cashier Pay", url: "#call-cashier-pay" },
           ]},
         ];
@@ -76,11 +77,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
  -->
     
 
-    <h1 id="service-window-124-alipay">Service Window | ALIPAY<a class="headerlink" href="#service-window-124-alipay" title="Permanent link">#</a></h1>
+    <h2 id="service-window-124-alipay">Service Window | ALIPAY<a class="headerlink" href="#service-window-124-alipay" title="Permanent link">#</a></h2>
 <p><strong>Scenario:</strong> Customer can call Alipay payment in Alipay H5 webpage or Alipay service window, then enter password to pay.</p>
-<h2 id="obtain-openid">Obtain OpenID<a class="headerlink" href="#obtain-openid" title="Permanent link">#</a></h2>
+<h3 id="obtain-openid">Obtain OpenID<a class="headerlink" href="#obtain-openid" title="Permanent link">#</a></h3>
 <p>Obtain user_id from <strong>oauth</strong> in Alipay production environment, please refer to: <a href="https://docs.open.alipay.com/289/105656">https: //docs.open.alipay.com/289/105656</a></p>
-<h2 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h2>
+<h2 id="3-request-payment-api">3 Request Payment API<a class="headerlink" href="#3-request-payment-api" title="Permanent link">#</a></h2>
 <p><strong>Basic request information:</strong></p>
 <table>
 <thead>
@@ -241,7 +242,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 }
 </code></pre>
 
-<h2 id="call-cashier-pay">Call Cashier Pay<a class="headerlink" href="#call-cashier-pay" title="Permanent link">#</a></h2>
+<h3 id="call-cashier-pay">Call Cashier Pay<a class="headerlink" href="#call-cashier-pay" title="Permanent link">#</a></h3>
 <p>Call Alipay on webpage, please refer to: <a href="https://docs.open.alipay.com/common/105591">https: //docs.open.alipay.com/common/105591</a></p>
 <p><strong>Receive Asynchronous notification after successful payment</strong></p>
 <p><strong>Note:</strong> please call the query API to inquire because the <a href="#目录异步通知">Asynchronous</a> notification might be delayed because of external factors, we suggest to use query API together with the asynchronous notification. for safety consideration, asynchronous notification only work with port 80 and 443 and doesn't work with custom port.</p>
@@ -278,7 +279,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </body>
 <script type="text/javascript">
 // 语言切换
-$('#zh-cn').on('click', function (e) {
+$('#zh_cn').on('click', function (e) {
   var languageType = window.location.href.indexOf('/ZH-CN/');
   if (languageType === -1) {
     window.location.href = window.location.href.slice(0, location.href.indexOf('/EN/')) + '/ZH-CN/'

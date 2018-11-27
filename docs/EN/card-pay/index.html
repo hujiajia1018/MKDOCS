@@ -53,12 +53,12 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="APP-pay/" class="btn btn-xs btn-default pull-right">
+      <a href="app-pay/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="APP-pay/" class="btn btn-xs btn-link">
-        Value Added Services API
+      <a href="app-pay/" class="btn btn-xs btn-link">
+        APP PAY
       </a>
     </div>
     
@@ -74,9 +74,9 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
  -->
     
 
-    <h1 id="card-124-wechat-alipay">Card | WECHAT / ALIPAY<a class="headerlink" href="#card-124-wechat-alipay" title="Permanent link">#</a></h1>
+    <h2 id="card-124-wechat-alipay">Card | WECHAT / ALIPAY<a class="headerlink" href="#card-124-wechat-alipay" title="Permanent link">#</a></h2>
 <p><strong>Description:</strong> Consumer-Presented Mode (Merchant scans Consumer's WeChat or Alipay payment code to obtain auth_code (payment authorization code) and collects payment from consumer.</p>
-<h2 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h2>
+<h3 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h3>
 <p><strong>Basic request information:</strong></p>
 <table>
 <thead>
@@ -298,7 +298,6 @@ print resp.read()
 <p>Note : this request return result is the customers payment's return result</p>
 <p><strong>Receive Asynchronous notification after successful payment</strong></p>
 <p><strong>Note:</strong> please call the query API to inquire because the <a href="#目录异步通知">Asynchronous</a> notification might be delayed because of external factors, we suggest to use query API together with the asynchronous notification. for safety consideration, asynchronous notification only work with port 80 and 443 and doesn't work with custom port.</p>
-<h1 id="_1"><a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
 
   <br>
   <!--
@@ -307,12 +306,12 @@ print resp.read()
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="APP-pay/" class="btn btn-xs btn-default pull-right">
+      <a href="app-pay/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="APP-pay/" class="btn btn-xs btn-link">
-        Value Added Services API
+      <a href="app-pay/" class="btn btn-xs btn-link">
+        APP PAY
       </a>
     </div>
     
@@ -332,7 +331,7 @@ print resp.read()
 </body>
 <script type="text/javascript">
 // 语言切换
-$('#zh-cn').on('click', function (e) {
+$('#zh_cn').on('click', function (e) {
   var languageType = window.location.href.indexOf('/ZH-CN/');
   if (languageType === -1) {
     window.location.href = window.location.href.slice(0, location.href.indexOf('/EN/')) + '/ZH-CN/'

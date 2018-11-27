@@ -77,15 +77,15 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
  -->
     
 
-    <h1 id="applet-124-wechat">Applet | WECHAT<a class="headerlink" href="#applet-124-wechat" title="Permanent link">#</a></h1>
+    <h2 id="applet-124-wechat">Applet | WECHAT<a class="headerlink" href="#applet-124-wechat" title="Permanent link">#</a></h2>
 <p><strong>Scenario:</strong> Merchant already has a WeChat Applet and needs to call WeChat Pay to finish payment in the Applet.</p>
-<h2 id="applet-real-name-registration">Applet Real Name Registration<a class="headerlink" href="#applet-real-name-registration" title="Permanent link">#</a></h2>
+<h3 id="applet-real-name-registration">Applet Real Name Registration<a class="headerlink" href="#applet-real-name-registration" title="Permanent link">#</a></h3>
 <p>Merchant needs to contact QFPAY to finish the Applet real name registration before using WeChat Applet Pay.</p>
 <p><strong>Note</strong>: merchant can only call payment with the real name registered under Applet.</p>
-<h2 id="obtain-openid">Obtain OpenID<a class="headerlink" href="#obtain-openid" title="Permanent link">#</a></h2>
+<h3 id="obtain-openid">Obtain OpenID<a class="headerlink" href="#obtain-openid" title="Permanent link">#</a></h3>
 <p>For details on how the Merchant obtains <strong>openid</strong> with the Applet after real name takes effect, please refer to:</p>
 <p><a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html?t=20161122">https: //mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html?t=20161122</a></p>
-<h2 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h2>
+<h3 id="request-payment-api">Request Payment API<a class="headerlink" href="#request-payment-api" title="Permanent link">#</a></h3>
 <p><strong>Basic Request information:</strong></p>
 <table>
 <thead>
@@ -201,7 +201,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 }
 </code></pre>
 
-<h2 id="call-applet-pay">Call Applet Pay<a class="headerlink" href="#call-applet-pay" title="Permanent link">#</a></h2>
+<h3 id="call-applet-pay">Call Applet Pay<a class="headerlink" href="#call-applet-pay" title="Permanent link">#</a></h3>
 <p>Applet payment can be called after obtaining the above parameters. Please refer to: <strong><a href="https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&amp;index=5">https: //pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&amp;index=5</a></strong></p>
 <p><strong>Receive Asynchronous notification after successful payment</strong></p>
 <p><strong>Note:</strong> please call the query API to inquire because the <a href="#目录异步通知">Asynchronous</a> notification might be delayed because of external factors, we suggest to use query API together with the asynchronous notification. for safety consideration, asynchronous notification only work with port 80 and 443 and doesn't work with custom port.</p>
@@ -238,7 +238,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </body>
 <script type="text/javascript">
 // 语言切换
-$('#zh-cn').on('click', function (e) {
+$('#zh_cn').on('click', function (e) {
   var languageType = window.location.href.indexOf('/ZH-CN/');
   if (languageType === -1) {
     window.location.href = window.location.href.slice(0, location.href.indexOf('/EN/')) + '/ZH-CN/'

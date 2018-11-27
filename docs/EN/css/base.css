@@ -19,6 +19,9 @@ body {
   padding-left: 5%;
   padding-right: 5%;
 }
+#en {
+  color: #409eff;
+}
 
 .wm-top-page {
   overflow: hidden;
@@ -591,4 +594,7 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
 }
 .logo-view1 > p > span {
   cursor: pointer;
+}
+.logo-view1 > p > span:hover {
+  color: #409eff;
 }

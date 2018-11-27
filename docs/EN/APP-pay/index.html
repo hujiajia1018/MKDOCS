@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Value Added Services API - Windmill MkDocs Theme</title>
+    <title>APP PAY - Windmill MkDocs Theme</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -28,20 +28,7 @@
       var is_top_frame = false;
         
         var pageToc = [
-          {title: "Value Added Services API", url: "#_top", children: [
-              {title: "CREATE ACTIVITY", url: "#create-activity" },
-              {title: "CHANGE ACTIVITY", url: "#change-activity" },
-              {title: "ACTIVITY QUERY", url: "#activity-query" },
-              {title: "SHARE ACTIVITY", url: "#share-activity" },
-              {title: "ACTIVITY STATISTIC", url: "#activity-statistic" },
-              {title: "CREATE COUPON RULES", url: "#create-coupon-rules" },
-              {title: "CHANGE COUPON RULES", url: "#change-coupon-rules" },
-              {title: "QUERY COUPON RULES", url: "#query-coupon-rules" },
-              {title: "USE COUPON", url: "#use-coupon" },
-              {title: "ROLLBACK COUPON", url: "#rollback-coupon" },
-              {title: "DESTROY/DELETE COUPON", url: "#destroydelete-coupon" },
-              {title: "COUPON RECORD QUERY", url: "#coupon-record-query" },
-              {title: "SAMPLE MESSAGE", url: "#sample-message" },
+          {title: "APP Pay", url: "#_top", children: [
           ]},
         ];
 
@@ -86,13 +73,13 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
  -->
     
 
-    <h1 id="value-added-services-api">Value Added Services API<a class="headerlink" href="#value-added-services-api" title="Permanent link">#</a></h1>
-<h2 id="create-activity">CREATE ACTIVITY<a class="headerlink" href="#create-activity" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
+    <h2 id="app-pay">APP Pay<a class="headerlink" href="#app-pay" title="Permanent link">#</a></h2>
+<p>Scenario：This payment scenario supports payment in the proprietary business logic of independently developed iOS and Android applications，Obtain payment parameters through payment API，and call Alipay HK/Wechat Pay HK wallet to pay，Confirm payment results and complete business process after successful payment.</p>
+<p><strong>Basic request information：</strong></p>
 <table>
 <thead>
 <tr>
-<th><strong>Request method</strong></th>
+<th>Request method</th>
 <th>Post under HTTP</th>
 </tr>
 </thead>
@@ -103,123 +90,83 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 <tr>
 <td><strong>Description</strong></td>
-<td><strong>Create an activity. Example: Defined rules and activity to given out the red packets.</strong></td>
+<td>Call the payment API</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Request parameters:</strong></p>
+<p><strong>Request parameters：</strong></p>
 <table>
 <thead>
 <tr>
 <th><strong>Parameter</strong></th>
 <th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
+<td>txamt</td>
+<td>Y</td>
+<td>Order payment amount,2 decimal places;</td>
 </tr>
 <tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
+<td>txcurrcd</td>
+<td>Y</td>
+<td>Transaction Currency:  Hong Kong Dollar: HKD / China Yuan: CNY / US Dollar: USD /</td>
 </tr>
 <tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
+<td>pay_type</td>
+<td>Y</td>
+<td>Payment Type：    801010 WeixinHK APP Payment；801510 AlipayHK APP Payment；</td>
 </tr>
 <tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
+<td>out_trade_no</td>
+<td>Y</td>
+<td>External Order Number / Developer Platform Order Number: This parameter cannot be used repeatedly to call payment (refund) API and make an order under the same MCHID. To ensure the trade number is unique, length is limited to 128 bytes.</td>
 </tr>
 <tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
+<td>txdtm</td>
+<td>Y</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
 </tr>
 <tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
+<td>goods_name</td>
+<td>Y</td>
+<td>Goods Name / Marking: Cannot exceed 20 alphanumeric or contain special characters.</td>
 </tr>
 <tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
+<td>goods_info</td>
+<td>N</td>
+<td>Neccessary for AlipayHK APP Pay;  item description, Cannot exceed 300 alphanumeric or contain special characters.</td>
 </tr>
 <tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
+<td>mchid</td>
+<td>N</td>
+<td>Neccessary when have sub-merchants；   Merchant ID: identification for merchant, assigned by QFPAY to distinguish the different merchants' order in channel system.</td>
 </tr>
 <tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
+<td>pay_tag</td>
+<td>N</td>
+<td>This parameter is a pay mark that supports Mainland wallet cross-border payment. It is required when doing Alipay HK payment, and set field Value as ALIPAYHK or ALIPAYCN,ALIPAYHK means Alipay HK wallet payment. ALIPAYCN means Mainland wallet aboard payment, field default value is ALIPAYHK.</td>
 </tr>
 <tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
+<td>return_url</td>
+<td>N</td>
+<td>Asynchronous notification address when order paid successfully.</td>
 </tr>
 <tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
+<td>txzone</td>
+<td>N</td>
+<td>Transaction Time zone: record of the order in local time, default time zone is Beijing time UTC+8.</td>
 </tr>
 <tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
+<td>udid</td>
+<td>N</td>
+<td>Unique device id</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Response Parameters:</strong></p>
+<p><strong>Response Parameters：</strong></p>
 <table>
 <thead>
 <tr>
@@ -229,1915 +176,223 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </thead>
 <tbody>
 <tr>
-<td>code</td>
-<td>Response code</td>
+<td>syssn</td>
+<td>Order Number: QFPAY generated.</td>
 </tr>
 <tr>
-<td>msg</td>
-<td>Response message</td>
+<td>out_trade_no</td>
+<td>External Order Number / Developer Platform Order Number.</td>
 </tr>
 <tr>
-<td><strong>id</strong></td>
-<td>Response id</td>
-</tr>
-</tbody>
-</table>
-<h2 id="change-activity">CHANGE ACTIVITY<a class="headerlink" href="#change-activity" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post or get under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/query</td>
+<td>txamt</td>
+<td>Order payment amount,2 decimal places;</td>
 </tr>
 <tr>
-<td><strong>Description</strong></td>
-<td><strong>Modify activity rule</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
+<td>txcurrcd</td>
+<td>Transaction Currency:  Hong Kong Dollar: HKD / China Yuan: CNY</td>
 </tr>
 <tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
+<td>pay_type</td>
+<td>Payment Type：    801010 WeixinHK APP Payment；801510 AlipayHK APP Payment；</td>
 </tr>
 <tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
+<td>txdtm</td>
+<td>Transaction Time: YYYY-MM-DD HH:MM:SS (format).</td>
 </tr>
 <tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
+<td>sysdtm</td>
+<td>System time</td>
 </tr>
 <tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
+<td>respcd</td>
+<td>Response Code: Code generated from order request.   <strong>0000</strong>: SUCCESS / <strong>1143</strong>: IN PROGRESS / <strong>1145</strong>: IN PROGRESS / (any others): FAIL</td>
 </tr>
 <tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
+<td>respmsg</td>
+<td>Response Message: Used for debugging.</td>
 </tr>
 <tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
+<td>resperr</td>
+<td>Response Error: Error description.</td>
 </tr>
 <tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
+<td>pay_params</td>
+<td>Payment Parameters: initiates WeChat Pay</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Response Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-</tbody>
-</table>
-<h2 id="activity-query">ACTIVITY QUERY<a class="headerlink" href="#activity-query" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post or get under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/query</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Query list of defined activites</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-<tr>
-<td>activities</td>
-<td>List of activities</td>
-</tr>
-</tbody>
-</table>
-<h2 id="share-activity">SHARE ACTIVITY<a class="headerlink" href="#share-activity" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post or get under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/query</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Share activities to others</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>share_url</strong></td>
-<td><strong>Shared url</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>Shared title</strong></td>
-</tr>
-<tr>
-<td><strong>icon_url</strong></td>
-<td><strong>Shared icon's url</strong></td>
-</tr>
-<tr>
-<td><strong>description</strong></td>
-<td><strong>Shared description</strong></td>
-</tr>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Red packet id</strong></td>
-</tr>
-<tr>
-<td><strong>source</strong></td>
-<td><strong>source</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>title</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Red packet type</strong></td>
-</tr>
-<tr>
-<td><strong>amt</strong></td>
-<td><strong>Red packet amount</strong></td>
-</tr>
-<tr>
-<td><strong>code</strong></td>
-<td><strong>Red packet code</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>Red packet status</strong></td>
-</tr>
-<tr>
-<td><strong>use_rule</strong></td>
-<td><strong>Use rule</strong></td>
-</tr>
-<tr>
-<td><strong>Content</strong></td>
-<td><strong>content</strong></td>
-</tr>
-</tbody>
-</table>
-<h2 id="activity-statistic">ACTIVITY STATISTIC<a class="headerlink" href="#activity-statistic" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post or get under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/query</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Share activities to others</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>Obtained number (activity or share)</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_amt</strong></td>
-<td><strong>Obtained amount (activity or share)</strong></td>
-</tr>
-<tr>
-<td><strong>award_num</strong></td>
-<td><strong>Awarded number (activity or share)</strong></td>
-</tr>
-<tr>
-<td><strong>award_amt</strong></td>
-<td><strong>Awarded amount (activity or share)</strong></td>
-</tr>
-<tr>
-<td><strong>share_ids</strong></td>
-<td><strong>List of activities or shares</strong></td>
-</tr>
-</tbody>
-</table>
-<h2 id="create-coupon-rules">CREATE COUPON RULES<a class="headerlink" href="#create-coupon-rules" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/payment</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Create an coupon. Example: create red packet usage rules</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-<tr>
-<td><strong>id</strong></td>
-<td>Response id</td>
-</tr>
-</tbody>
-</table>
-<h2 id="change-coupon-rules">CHANGE COUPON RULES<a class="headerlink" href="#change-coupon-rules" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/payment</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Create an activity. Example: Defined rules and activity to given out the red packets.</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-</tbody>
-</table>
-<h2 id="query-coupon-rules">QUERY COUPON RULES<a class="headerlink" href="#query-coupon-rules" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/payment</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Query list of red packet's rules</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-<tr>
-<td>id</td>
-<td>Red packet rule id</td>
-</tr>
-<tr>
-<td>src</td>
-<td>Source</td>
-</tr>
-<tr>
-<td>mchnt_id</td>
-<td>Merchant id</td>
-</tr>
-<tr>
-<td>title</td>
-<td>Red packet's rule title</td>
-</tr>
-<tr>
-<td>amt_max</td>
-<td>Maximum red packet amount</td>
-</tr>
-<tr>
-<td>amt_min</td>
-<td>Minimum red packet amount</td>
-</tr>
-<tr>
-<td>status</td>
-<td>Red packet rule's status</td>
-</tr>
-<tr>
-<td>use_rule</td>
-<td>Red packet rules</td>
-</tr>
-<tr>
-<td>content</td>
-<td>Content and description</td>
-</tr>
-<tr>
-<td>start_time</td>
-<td>Validity period</td>
-</tr>
-<tr>
-<td>expire_time</td>
-<td>Expired date and time</td>
-</tr>
-</tbody>
-</table>
-<h2 id="use-coupon">USE COUPON<a class="headerlink" href="#use-coupon" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/payment</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Use red packet</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-</tbody>
-</table>
-<h2 id="rollback-coupon">ROLLBACK COUPON<a class="headerlink" href="#rollback-coupon" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/payment</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Rollback/cancel use of red packet (used when cancelled or void a transaction)</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p>|<strong>Response| Parameters: </strong>|</p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-</tbody>
-</table>
-<h2 id="destroydelete-coupon">DESTROY/DELETE COUPON<a class="headerlink" href="#destroydelete-coupon" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/payment</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Rollback/cancel use of red packet (used when cancelled or void a transaction)</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-</tbody>
-</table>
-<h2 id="coupon-record-query">COUPON RECORD QUERY<a class="headerlink" href="#coupon-record-query" title="Permanent link">#</a></h2>
-<p><strong>Basic request information:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Request method</strong></th>
-<th>Post under HTTP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Request address</strong></td>
-<td>/trade/v1/payment</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td><strong>Query red packet usages record</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Request parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Required</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Source id</strong></td>
-</tr>
-<tr>
-<td><strong>mchnt_id</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Merchant id</strong></td>
-</tr>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>Y</strong></td>
-<td><strong>Type of activity; 1 - Reduct</strong></td>
-</tr>
-<tr>
-<td><strong>title</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Subject/Title of the activity</strong></td>
-</tr>
-<tr>
-<td><strong>total_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity amount (estimation)</strong></td>
-</tr>
-<tr>
-<td><strong>xx_type</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity sharing type; 1 -- red packet</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activities sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>obtain_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Id for activity sharing for xx_type</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_award_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of xx_type rewards sharers</strong></td>
-</tr>
-<tr>
-<td><strong>sponsor_xx_id</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity reward sharer's xx_type id</strong></td>
-</tr>
-<tr>
-<td><strong>rule</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity rule</strong></td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity url</strong></td>
-</tr>
-<tr>
-<td><strong>return_url</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity callback URL</strong></td>
-</tr>
-<tr>
-<td><strong>ext</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity extension information</strong></td>
-</tr>
-<tr>
-<td><strong>content</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity contents</strong></td>
-</tr>
-<tr>
-<td><strong>used_num</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Number of activity had been received</strong></td>
-</tr>
-<tr>
-<td><strong>used_amt</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Amount received</strong></td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Activity status</strong></td>
-</tr>
-<tr>
-<td><strong>start_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Start date and time of the activity period</strong></td>
-</tr>
-<tr>
-<td><strong>expire_time</strong></td>
-<td><strong>N</strong></td>
-<td><strong>Expire date and time of the activity period</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Response Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>Response code</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>Response message</td>
-</tr>
-<tr>
-<td>id</td>
-<td>Record id</td>
-</tr>
-<tr>
-<td>src</td>
-<td>source</td>
-</tr>
-<tr>
-<td>mchnt_id</td>
-<td>Merchant id</td>
-</tr>
-<tr>
-<td>customer_id</td>
-<td>Consumer id</td>
-</tr>
-<tr>
-<td>out_sn</td>
-<td>External unique identifier</td>
-</tr>
-<tr>
-<td>orig_out_sn</td>
-<td>Original unique identifier</td>
-</tr>
-<tr>
-<td>coupon_amt</td>
-<td>Red packet amount</td>
-</tr>
-<tr>
-<td>type</td>
-<td>Record type</td>
-</tr>
-<tr>
-<td>Content</td>
-<td>Content</td>
-</tr>
-<tr>
-<td>create_time</td>
-<td>Record create time</td>
-</tr>
-</tbody>
-</table>
-<h2 id="sample-message">SAMPLE MESSAGE<a class="headerlink" href="#sample-message" title="Permanent link">#</a></h2>
-<p>service QFMarketing</p>
-<p>{</p>
-<p>​    // ================activity related interface================</p>
-<p>​    // create event</p>
-<p>​    CreateResp activity_create(1:Activity activity);</p>
-<p>​    // change activity</p>
-<p>​    RespCode   activity_change(1:Activity activity);</p>
-<p>​    /**</p>
-<p>​     * query activity</p>
-<p>​     * src:         source,  mandatory field</p>
-<p>​     * mchnt_id:    merchant id,  mandatory field，If it is empty, the activity created by the source is used, otherwise the activity created by the specified merchant is used</p>
-<p>​     * activity_id: activity id,  optional field，If not empty, query for the specified activity</p>
-<p>​     * pos:         position</p>
-<p>​     * count:       number of queries, &lt;=0, query start from pos provided</p>
-<p>​     */</p>
-<p>​    ActivityList activity_query(1:string src, 2:string mchnt_id, 3:activity_id, 4:i32 pos, 5:i32 count);</p>
-<p>​    /**</p>
-<p>​     * activity shares</p>
-<p>​     * src:       source,  mandatory field</p>
-<p>​     * mchnt_id:  merchant id,  mandatory field，If it is empty, the activity created by the source is used, otherwise the activity created by the specified merchant is used</p>
-<p>* trade_amt: trade amount</p>
-<p>​     * type:      shares red packet type</p>
-<p>​     */</p>
-<p>​    ActivityShare activity_share(1:string src, 2:string mchnt_id, 3:trade_amt, 4:i16 type);</p>
-<p>​    /**</p>
-<p>​     * share activities</p>
-<p>​     * src:         source,  mandatory field</p>
-<p>​     * activity_id: activity statistic id</p>
-<p>​     * share_id:    share statisc id. Share_id and activity_id only one can exist，if both exist，activity_id will be used     */</p>
-<p>​    ActivityStat activity_stat(1:string src, 2:string activity_id, 3:share_id share_id);</p>
-<p>​    // ================Red Packet Usage Rules Related Interface ================</p>
-<p>​    // create red packet usage rules</p>
-<p>​    CreateResp coupon_rule_create(1:CouponRule coupon_rule);</p>
-<p>​    // modify red packet usage rules</p>
-<p>​    RespCode   coupon_rule_change(1:CouponRule coupon_rule);</p>
-<p>​    /**</p>
-<p>​     * query red packet usage rules</p>
-<p>​     * src:      source,  manatory field</p>
-<p>​     * mchnt_id: merchant id,  optional field，If it is empty, the activity created by the source is queried, otherwise the activity created by the specified merchant is queried  </p>
-<p>* rule_id: rule id, optional field, if it is empty, query the specify red packet usage rules</p>
-<p>* pos:  query possiton</p>
-<p>​     * count:  query count, if count &lt;=0, query start from pos number</p>
-<p>*/</p>
-<p>​    CouponRuleList coupon_rule_query(1:string src, 2:string mchnt_id, 3:i32 rule_id, 4:i32 pos, 4:i32 count);</p>
-<p>// ================</p>
-<p>red packet related interface</p>
-<p>================</p>
-<p>​    /**</p>
-<p>* red packet usage</p>
-<ul>
-<li>src: source,  mandatory field</li>
-</ul>
-<p>​     * mchnt_id:merchant id, optional field，used when verifying red packet</p>
-<p>​     * coupon_code: red packet code</p>
-<p>​     * trade_amt: trade amount, verify if red packet can be used</p>
-<p>​     */</p>
-<p>RespCode coupon_use(1:string src, 2:string mchnt_id, 3:string coupon_code, 4:i32 trade_amt);</p>
-<p>/**</p>
-<p>* red packet rollback</p>
-<p>* src:  source, mandatory field</p>
-<p>* customer_id: customer id</p>
-<p>* coupon_code:red packet code</p>
-<p>*/</p>
-<p>RespCode coupon_rollback(1:string src, 2:string customer_id, 3:string coupon_code);</p>
-<p>/**</p>
-<p>* destroy/void red packet</p>
-<p>* src:   source, mandatory field</p>
-<p>* customer_id:customer id</p>
-<p>* coupon_code: red packet code</p>
-<p>*/</p>
-<p>RespCode coupon_destroy(1:string src, 2:string customer_id, 3:string coupon_code);</p>
-<p>/**</p>
-<p>​     * red packet record query</p>
-<p>​     * src:  source,  mandatory field</p>
-<p>​     * mchnt_id:   merchant id,  optional field，If it is empty, the red packet usage record created by the query source or query the red packet use record created by the specified merchant  </p>
-<p>​     * begin_time: query start time</p>
-<p>​     * end_time:   query end time</p>
-<p>​     * pos:  query position</p>
-<p>​     * count:  query count, if count &lt;=0, query start from pos number</p>
-<p>​     */</p>
-<p>​    CouponRecordList coupon_record_query(1:string src, 2:string mchnt_id, 3: start_time, 4:end_time, 5:i32 pos, 6:i32 count);</p>
-<p>}</p>
+<p><strong>Response parameters（AlipayHK APP）：</strong></p>
+<pre><code>{
+  &quot;syssn&quot;: &quot;20180904016100020000058497&quot;,
+  &quot;out_trade_no&quot;: &quot;1018172042-1226&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;txcurrcd&quot;: &quot;HKD&quot;,
+  &quot;pay_type&quot;: &quot;801510&quot;,
+   &quot;txdtm&quot;: &quot;2018-09-04 19:00:00&quot;,
+   &quot;sysdtm&quot;: &quot;2018-09-04 20:30:18&quot;,   
+   &quot;udid&quot;: &quot;qiantai2&quot;,
+   &quot;respcd&quot;: &quot;0000&quot;,
+   &quot;respmsg&quot;: &quot;&quot;,  
+   &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f&quot;,
+  &quot;chnlsn&quot;: &quot;&quot;,  
+  &quot;pay_params&quot;: {
+    &quot;partner&quot;: &quot;2088621909478475&quot;,
+    &quot;seller_id&quot;: &quot;forex_318255@alitest.com&quot;,
+    &quot;subject&quot;: &quot;goods_name&quot;,
+    &quot;body&quot;: &quot;goods_info&quot;,
+    &quot;total_fee&quot;: &quot;0.01&quot;,
+    &quot;notify_url&quot;: &quot;http://www.xxx.com&quot;,
+    &quot;service&quot;: &quot;mobile.securitypay.pay&quot;,
+    &quot;cardcd&quot;: &quot;&quot;,
+    &quot;payment_type&quot;: &quot;1&quot;,
+    &quot;_input_charset&quot;: &quot;UTF-8&quot;,
+    &quot;it_b_pay&quot;: &quot;30m&quot;,
+    &quot;return_url&quot;: &quot;http://www.qfpay.com/&quot;,
+    &quot;payment_inst&quot;: &quot;ALIPAYHK&quot;,
+    &quot;currency&quot;: &quot;HKD&quot;,
+    &quot;product_code&quot;: &quot;NEW_WAP_OVERSEAS_SELLER&quot;,
+    &quot;forex_biz&quot;: &quot;FP&quot;,
+    &quot;sign&quot;:&quot;AXwqha79D%2BdnJvN4qyIk6wrintWXMFL3DNvIsJ9wmoBVkhWdE1jWb%2Fn7gWwcEPJkxrmgE%2BSLaPOo9mTemDzDgt99tJ4yPL%2B%2FFLiT78e5xCyZKOdPLcKnZ2fAKaiBTca43m5J6GE%2B8ybu56fRLw0hI8oWSxiJzY54MxwDGbE4QoQ%3D&quot;,
+    &quot;sign_type&quot;: &quot;RSA&quot;,
+    &quot;secondary_merchant_id&quot;: &quot;2325496&quot;,
+    &quot;secondary_merchant_name&quot;: &quot;shusheng&quot;,
+    &quot;secondary_merchant_industry&quot;: &quot;5311&quot;
+  }
+}
+</code></pre>
+
+<p><strong>Response sample（WeixinHK APP）：</strong></p>
+<pre><code>{
+  &quot;syssn&quot;: &quot;20181018016100020000064335&quot;,
+  &quot;out_trade_no&quot;: &quot;1018171240-6683&quot;,
+  &quot;txamt&quot;: &quot;1&quot;,
+  &quot;txcurrcd&quot;: &quot;HKD&quot;,
+  &quot;pay_type&quot;: &quot;801010&quot;,
+  &quot;txdtm&quot;: &quot;2018-10-18 17:12:40&quot;,
+  &quot;sysdtm&quot;: &quot;2018-10-18 17:12:41&quot;,  
+  &quot;udid&quot;: &quot;qiantai2&quot;,
+  &quot;respcd&quot;: &quot;0000&quot;,
+  &quot;respmsg&quot;: &quot;OK&quot;,
+  &quot;resperr&quot;: &quot;\u4ea4\u6613\u6210\u529f\uff01&quot;,     
+  &quot;cardcd&quot;: &quot;&quot;,
+  &quot;pay_params&quot;: {
+    &quot;prepayid&quot;: &quot;415398539638736726430369036811&quot;,
+    &quot;sign&quot;: &quot;89D5D3346DCD0C5F848C4ADFA8F2E70D&quot;
+  },
+  &quot;chnlsn&quot;: &quot;&quot;
+}
+</code></pre>
+
+<p><strong>Call Payment：</strong></p>
+<p>APP will call Alipay HK SDK or Wechat Pay SDK with  the parameter in <strong>pay_params</strong> after receive the response parameters, please refer to the official document below.</p>
+<p>AlipayHK：<strong>https://global.alipay.com/service/app_hk/6</strong></p>
+<p><strong>Response parameters</strong></p>
+<p><strong>pay_params field in response parameters（AlipayHK APP）：</strong>                         </p>
+<pre><code>{
+  &quot;partner&quot;: &quot;2088621909478475&quot;,
+  &quot;seller_id&quot;: &quot;forex_318255@alitest.com&quot;,
+  &quot;out_trade_no&quot;: &quot;20180904016100020000058497&quot;,
+  &quot;subject&quot;: &quot;goods_name&quot;,
+  &quot;body&quot;: &quot;goods_info&quot;,
+  &quot;total_fee&quot;: &quot;0.01&quot;,
+  &quot;notify_url&quot;: &quot;http://www.xxx.com&quot;,
+  &quot;service&quot;: &quot;mobile.securitypay.pay&quot;,
+  &quot;payment_type&quot;: &quot;1&quot;,
+  &quot;_input_charset&quot;: &quot;UTF-8&quot;,
+  &quot;it_b_pay&quot;: &quot;30m&quot;,
+  &quot;return_url&quot;: &quot;http://www.qfpay.com/&quot;,
+  &quot;payment_inst&quot;: &quot;ALIPAYHK&quot;,
+  &quot;currency&quot;: &quot;HKD&quot;,
+  &quot;product_code&quot;: &quot;NEW_WAP_OVERSEAS_SELLER&quot;,
+  &quot;forex_biz&quot;: &quot;FP&quot;,
+  &quot;sign&quot;:&quot;AXwqha79D%2BdnJvN4qyIk6wrintWXMFL3DNvIsJ9wmoBVkhWdE1jWb%2Fn7gWwcEPJkxrmgE%2BSLaPOo9mTemDzDgt99tJ4yPL%2B%2FFLiT78e5xCyZKOdPLcKnZ2fAKaiBTca43m5J6GE%2B8ybu56fRLw0hI8oWSxiJzY54MxwDGbE4QoQ%3D&quot;,
+  &quot;sign_type&quot;: &quot;RSA&quot;,
+  &quot;secondary_merchant_id&quot;: &quot;2325496&quot;,
+  &quot;secondary_merchant_name&quot;: &quot;shusheng&quot;,
+  &quot;secondary_merchant_industry&quot;: &quot;5311&quot;
+}
+</code></pre>
+
+<p><strong>pay_params field in response parameters（WeixinHK APP）：</strong></p>
+<pre><code>{&quot;prepayid&quot;: &quot;415398539638736726430369036811&quot;, &quot;sign&quot;: &quot;89D5D3346DCD0C5F848C4ADFA8F2E70D&quot;}
+</code></pre>
+
+<p><strong>Python Request Sample：</strong></p>
+<pre><code>#!/usr/bin/env python
+
+#coding=utf8
+
+**import** urllib, urllib2, hashlib
+
+unicode_to_utf8 = **lambda** s: s.encode('utf-8') **if** isinstance(s, unicode) **else** s
+
+# request signature data as data dictionary
+
+**def** **make_req_sign**(data, key):
+
+​    keys = data.keys()
+
+​    keys.sort()
+
+​    p = []
+
+​    **for** k **in** keys:
+
+​        k = unicode_to_utf8(k)
+
+​        v = unicode_to_utf8(data[k])
+
+​        p.append('%s=%s'%(k,v))
+
+​    unsign_str = '&amp;'.join(p) + unicode_to_utf8(key)
+
+​    s = hashlib.md5(unsign_str).hexdigest()
+
+​    **return** s.upper()
+
+
+
+txamt = '1'
+
+txcurrcd = ‘HKD’
+
+pay_type = '801510'
+
+out_trade_no = '145399626053599943'
+
+txdtm = '2018-09-10 11:51:00'
+
+goods_name = 'QFPAY test goods_name'   
+
+goods_info = 'QFPAY test goods_info'
+
+mchid = 'P5W2di7Raa'
+
+return_url = 'http://www.qfpay.com/'
+
+seller_id = 'forex_318255@alitest.com'
+
+key = 'app_key assigned by QFPAY'
+
+
+
+data ={'txamt': txamt, 'txcurrcd': txcurrcd, 'pay_type': pay_type, 'out_trade_no': out_trade_no, 'txdtm': txdtm, 'goods_name':goods_name, 'goods_info ': goods_info, 'mchid': mchid, 'return_url ': return_url, 'seller_id ': seller_id}
+
+
+
+req = urllib2.Request('https://openapi-test.qfpay.com/trade/v1/payment',urllib.urlencode(data))
+
+req.add_header('X-QF-APPCODE', 'app_code assigned by QFPAY')
+
+req.add_header('X-QF-SIGN', make_req_sign(data, key))
+
+resp = urllib2.urlopen(req)
+
+**print** resp.read()
+</code></pre>
+
+<p><strong>Receive Asynchronous notification after successful payment</strong></p>
+<p><strong>Note:</strong> please call the query API to inquire because the <a href="#目录异步通知">Asynchronous</a> notification might be delayed because of external factors, we suggest to use query API together with the asynchronous notification. for safety consideration, asynchronous notification only work with port 80 and 443 and doesn't work with custom port.</p>
 
   <br>
   <!--
@@ -2171,7 +426,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </body>
 <script type="text/javascript">
 // 语言切换
-$('#zh-cn').on('click', function (e) {
+$('#zh_cn').on('click', function (e) {
   var languageType = window.location.href.indexOf('/ZH-CN/');
   if (languageType === -1) {
     window.location.href = window.location.href.slice(0, location.href.indexOf('/EN/')) + '/ZH-CN/'

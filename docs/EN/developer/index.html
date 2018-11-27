@@ -78,8 +78,8 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
  -->
     
 
-    <h1 id="developer-instructions">Developer Instructions<a class="headerlink" href="#developer-instructions" title="Permanent link">#</a></h1>
-<h2 id="environment-description">Environment Description<a class="headerlink" href="#environment-description" title="Permanent link">#</a></h2>
+    <h2 id="developer-instructions">Developer Instructions<a class="headerlink" href="#developer-instructions" title="Permanent link">#</a></h2>
+<h3 id="environment-description">Environment Description<a class="headerlink" href="#environment-description" title="Permanent link">#</a></h3>
 <p><strong>There're two environments of QFPAY API</strong></p>
 <p><strong>Test environment:</strong> for testing with the code and key.</p>
 <p><strong>Official environment:</strong> for business use.</p>
@@ -130,7 +130,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </table>
 <p><strong>Encoding Description</strong></p>
 <p>All return parameters from API are in UTF-8 code unless specific description given.</p>
-<h2 id="signature-verification">Signature Verification<a class="headerlink" href="#signature-verification" title="Permanent link">#</a></h2>
+<h3 id="signature-verification">Signature Verification<a class="headerlink" href="#signature-verification" title="Permanent link">#</a></h3>
 <p>All signatures to request API are in this form unless specific description given.</p>
 <p><strong>Signature method for requesting API parameters: </strong></p>
 <p><strong>Step 1:</strong> Sort all parameters in ascending order according to parameter names</p>
@@ -184,7 +184,7 @@ s = hashlib.md5(unsign_str).hexdigest()
 return s.upper()
 </code></pre>
 
-<h2 id="request-description">Request Description<a class="headerlink" href="#request-description" title="Permanent link">#</a></h2>
+<h3 id="request-description">Request Description<a class="headerlink" href="#request-description" title="Permanent link">#</a></h3>
 <p><strong>Required parameter settings in HTTP header field to request API: </strong></p>
 <table>
 <thead>
@@ -207,7 +207,7 @@ return s.upper()
 </tr>
 </tbody>
 </table>
-<h2 id="response-description">Response Description<a class="headerlink" href="#response-description" title="Permanent link">#</a></h2>
+<h3 id="response-description">Response Description<a class="headerlink" href="#response-description" title="Permanent link">#</a></h3>
 <p><strong>Note</strong>: after successfully requested, API will return information in <strong>JSON</strong> form. This is for developers to obtain API return parameters and verify the signature of the return information.</p>
 <p><strong>Parameters of the return HTTP header field: </strong></p>
 <table>
@@ -282,7 +282,7 @@ return s.upper()
 MD5 result: 1E2CE7C2A7F8F581C354A857182B7A31
 </code></pre>
 
-<h2 id="asynchronous-notification">Asynchronous Notification<a class="headerlink" href="#asynchronous-notification" title="Permanent link">#</a></h2>
+<h3 id="asynchronous-notification">Asynchronous Notification<a class="headerlink" href="#asynchronous-notification" title="Permanent link">#</a></h3>
 <p><strong>Note:</strong> Asynchronous Notification address is provided by the Channel system and QFPAY technical supports will set them up. Only one <a href="#目录异步通知">Asynchronous</a> Notification address can be set up for each set of Code &amp; Key, but it can be modified. Successfully paid orders will return <a href="#目录异步通知">Asynchronous</a> Notification results. Please call the query API to inquire since the <a href="#目录异步通知">Asynchronous</a> Notification might be delayed because of external factors. We suggest to use query API in conjunction with the Asynchronous Notification. Asynchronous Notification only works with port 80 and 443 and doesn't work with custom port out of security concerns.</p>
 <p><strong>Asynchronous Notification send rules:</strong></p>
 <ol>
@@ -436,7 +436,7 @@ return s.upper()
 </body>
 <script type="text/javascript">
 // 语言切换
-$('#zh-cn').on('click', function (e) {
+$('#zh_cn').on('click', function (e) {
   var languageType = window.location.href.indexOf('/ZH-CN/');
   if (languageType === -1) {
     window.location.href = window.location.href.slice(0, location.href.indexOf('/EN/')) + '/ZH-CN/'

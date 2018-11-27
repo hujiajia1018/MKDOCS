@@ -56,11 +56,21 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
-    <div class="wm-article-nav">
-      <a href="APP-pay/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="APP-pay/" class="btn btn-xs btn-link">
+    <div class="wm-article-nav pull-right">
+      <a href="Value-added-services-api/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="Value-added-services-api/" class="btn btn-xs btn-link">
         Value Added Services API
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="app-pay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="app-pay/" class="btn btn-xs btn-link">
+        APP PAY
       </a>
     </div>
     
@@ -68,7 +78,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
  -->
     
 
-    <h1 id="api-instructions">API Instructions<a class="headerlink" href="#api-instructions" title="Permanent link">#</a></h1>
+    <h2 id="api-instructions">API Instructions<a class="headerlink" href="#api-instructions" title="Permanent link">#</a></h2>
 <p>OrderPayment</p>
 <p><strong>Basic request information:</strong></p>
 <table>
@@ -218,7 +228,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 </tbody>
 </table>
-<h2 id="order-query">Order Query<a class="headerlink" href="#order-query" title="Permanent link">#</a></h2>
+<h3 id="order-query">Order Query<a class="headerlink" href="#order-query" title="Permanent link">#</a></h3>
 <p><strong>Note: Merchant should call query API to check the order status after created an order until QFPAY return with the order status</strong>. <strong>and handle according to the orderstatus.</strong></p>
 <p>Mostly cannot query for the order that beyond month, or please input <strong>start_time, end_time</strong> (time section should include <strong>sysdtm</strong>, and should not beyond month) we suggest to take <strong>syssn</strong> as query condition.</p>
 <p><strong>Basic request information:</strong></p>
@@ -404,7 +414,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 }
 </code></pre>
 
-<h2 id="order-refund">Order Refund<a class="headerlink" href="#order-refund" title="Permanent link">#</a></h2>
+<h3 id="order-refund">Order Refund<a class="headerlink" href="#order-refund" title="Permanent link">#</a></h3>
 <p><strong>Note: initiate a refund order, merchants' amount of incoming payment should be greater than the amount of the refund, or it will fail. we suggest to make the refund no later than 30 days pass the syssn time of that original order. </strong></p>
 <p><strong>Basic request information:</strong></p>
 <table>
@@ -524,7 +534,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 }
 </code></pre>
 
-<h2 id="order-close">Order Close<a class="headerlink" href="#order-close" title="Permanent link">#</a></h2>
+<h3 id="order-close">Order Close<a class="headerlink" href="#order-close" title="Permanent link">#</a></h3>
 <ol>
 <li>What status must an Order be in to close?</li>
 </ol>
@@ -648,7 +658,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </code></pre>
 
 <p><strong>Note</strong>: order closing is not generally supported and might be unavailable to close the order. It is not available to close the order if the return code is 1297 or <strong>syssn</strong> field absent the return parameters. Merchant can call refund API if the order is paid already.</p>
-<h2 id="order-remarks">Order Remarks<a class="headerlink" href="#order-remarks" title="Permanent link">#</a></h2>
+<h3 id="order-remarks">Order Remarks<a class="headerlink" href="#order-remarks" title="Permanent link">#</a></h3>
 <p><strong>Description</strong>: Add remarks to the order; does not support merchants with their own channel</p>
 <p><strong>Basic request information</strong>:</p>
 <table>
@@ -700,7 +710,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <pre><code>{&quot;resperr&quot;: &quot;&quot;,&quot;respcd&quot;: &quot;0000&quot;,&quot;respmsg&quot;: &quot;&quot;,&quot;data&quot;: {}}
 </code></pre>
 
-<h2 id="bill-download">Bill Download<a class="headerlink" href="#bill-download" title="Permanent link">#</a></h2>
+<h3 id="bill-download">Bill Download<a class="headerlink" href="#bill-download" title="Permanent link">#</a></h3>
 <p><strong>Note: the channel system will download the bills the second day and take day as Unit, it includes bill of every merchant. Only available on formal environment. Return as .zip file</strong></p>
 <p><strong>Basic request information:</strong></p>
 <table>
@@ -738,7 +748,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tr>
 </tbody>
 </table>
-<h1 id="_1"><a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
 
   <br>
   <!--
@@ -746,11 +755,21 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
-    <div class="wm-article-nav">
-      <a href="APP-pay/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="APP-pay/" class="btn btn-xs btn-link">
+    <div class="wm-article-nav pull-right">
+      <a href="Value-added-services-api/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="Value-added-services-api/" class="btn btn-xs btn-link">
         Value Added Services API
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="app-pay/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="app-pay/" class="btn btn-xs btn-link">
+        APP PAY
       </a>
     </div>
     
@@ -762,7 +781,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </body>
 <script type="text/javascript">
 // 语言切换
-$('#zh-cn').on('click', function (e) {
+$('#zh_cn').on('click', function (e) {
   var languageType = window.location.href.indexOf('/ZH-CN/');
   if (languageType === -1) {
     window.location.href = window.location.href.slice(0, location.href.indexOf('/EN/')) + '/ZH-CN/'

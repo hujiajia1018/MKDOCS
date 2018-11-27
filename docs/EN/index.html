@@ -51,12 +51,12 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
     <div class="wm-top-tool pull-right logo-view1">
-      <p><span id='zh-cn'>中文 </span>/<span id='en'> EN</span></p>
+      <p><span id='zh_cn'>中文 </span>/<span id='en'> EN</span></p>
     </div>
 
     
     <div class="wm-top-tool pull-right dropdown">
-      <div class="dropdown-inner" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">文档中心</div>
+      <div class="dropdown-inner" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">document center</div>
       <!-- <ul class="dropdown-menu dropdown-menu-self" aria-labelledby="dropdownMenu1">
         <li><a href="#">API文档</a></li>
         <li><a href="#">开发指南</a></li>
@@ -66,7 +66,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
     <div class="wm-top-tool pull-right dropdown">
-      <div class="dropdown-inner" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">管理中心</div>
+      <div class="dropdown-inner" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">manage center</div>
     </div>
 
     
@@ -77,7 +77,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
           ><i class="fa fa-search" aria-hidden="true"></i></button>
 
         <div class="input-group input-group-sm wm-top-search">
-          <input type="text" name="q" class="form-control" id="mkdocs-search-query" placeholder="搜索" autocomplete="off">
+          <input type="text" name="q" class="form-control" id="mkdocs-search-query" placeholder="Search" autocomplete="off">
           <span class="input-group-btn" role="search">
             
             <button class="btn btn-default dropdown-toggle collapse" data-toggle="dropdown" type="button"><span class="caret"></span></button>
@@ -135,9 +135,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
         <li class="wm-toc-li wm-toc-lev1 "><a href="card-pay/" class="wm-article-link wm-toc-text">Card WECHAT ALIPAY</a>
 </li>
-        <li class="wm-toc-li wm-toc-lev1 "><a href="APP-pay/" class="wm-article-link wm-toc-text">Value Added Services API</a>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="app-pay/" class="wm-article-link wm-toc-text">APP PAY</a>
 </li>
         <li class="wm-toc-li wm-toc-lev1 "><a href="API-Instructions/" class="wm-article-link wm-toc-text">API Instructions</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="Value-added-services-api/" class="wm-article-link wm-toc-text">Value Added Services API</a>
 </li>
   </ul>
 </nav>
@@ -265,7 +267,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </body>
 <script type="text/javascript">
 // 语言切换
-$('#zh-cn').on('click', function (e) {
+$('#zh_cn').on('click', function (e) {
   var languageType = window.location.href.indexOf('/ZH-CN/');
   if (languageType === -1) {
     window.location.href = window.location.href.slice(0, location.href.indexOf('/EN/')) + '/ZH-CN/'
